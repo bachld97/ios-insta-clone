@@ -2,6 +2,7 @@ import UIKit
 
 class LoginScreenViewControler: UIViewController {
     private lazy var loginScreenView = LoginScreenView(delegate: self, insets)
+    private let loginUseCase = LoginUseCase()
     private var insets = Spacing()
     
     override func loadView() {
@@ -27,7 +28,15 @@ class LoginScreenViewControler: UIViewController {
 
 extension LoginScreenViewControler: LoginScreenViewDelegate {
     func performLogin(withUsername username: String, andPassword password: String) {
-        
+        let credential = LoginUseCase.Credential(username, password)
+        self.loginUseCase.execute(credential) { response in
+            switch response.result {
+            case .success(let user):
+                print(user)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func navigateToSignup() {

@@ -1,11 +1,3 @@
-//
-//  Instagram_CloneTests.swift
-//  Instagram CloneTests
-//
-//  Created by CPU12071 on 4/26/19.
-//  Copyright © 2019 Le Duy Bach. All rights reserved.
-//
-
 import XCTest
 @testable import Instagram_Clone
 

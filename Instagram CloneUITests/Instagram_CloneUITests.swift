@@ -1,11 +1,3 @@
-//
-//  Instagram_CloneUITests.swift
-//  Instagram CloneUITests
-//
-//  Created by CPU12071 on 4/26/19.
-//  Copyright © 2019 Le Duy Bach. All rights reserved.
-//
-
 import XCTest
 
 class Instagram_CloneUITests: XCTestCase {
