@@ -33,7 +33,7 @@ class LoginButton: UIButton {
             } else if isHighlighted {
                 backgroundColor = highlightColor
             } else {
-                backgroundColor = originalBackground
+                backgroundColor = disabledColor
             }
         }
     }

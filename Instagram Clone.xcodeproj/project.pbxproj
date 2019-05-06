@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14114BE5227FE307005E161E /* HomeNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14114BE4227FE307005E161E /* HomeNavigationViewController.swift */; };
 		14277E0A227C26E300FF362C /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14277E09227C26E300FF362C /* UseCase.swift */; };
 		14277E0C227C273E00FF362C /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14277E0B227C273E00FF362C /* LoginUseCase.swift */; };
 		14277E0E227C283100FF362C /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14277E0D227C283100FF362C /* LoginResponse.swift */; };
@@ -24,6 +25,11 @@
 		14937BA522730EBB00AD00F8 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14937BA422730EBB00AD00F8 /* UIColor+Extension.swift */; };
 		14937BA822731A3900AD00F8 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14937BA722731A3900AD00F8 /* Spacing.swift */; };
 		14981BE0227FD3EB0024BCEB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14981BDF227FD3EB0024BCEB /* BaseViewController.swift */; };
+		14A58EC0227FFF2D00183A98 /* NotificationScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A58EBF227FFF2D00183A98 /* NotificationScreenViewController.swift */; };
+		14A58EC2227FFF3800183A98 /* ProfileScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A58EC1227FFF3800183A98 /* ProfileScreenViewController.swift */; };
+		14A58EC4227FFF4200183A98 /* CreateScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A58EC3227FFF4200183A98 /* CreateScreenViewController.swift */; };
+		14A58EC6227FFF4C00183A98 /* SearchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A58EC5227FFF4C00183A98 /* SearchScreenViewController.swift */; };
+		14A58EC8227FFF5C00183A98 /* FeedScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A58EC7227FFF5C00183A98 /* FeedScreenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		14114BE4227FE307005E161E /* HomeNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationViewController.swift; sourceTree = "<group>"; };
 		14277E09227C26E300FF362C /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
 		14277E0B227C273E00FF362C /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
 		14277E0D227C283100FF362C /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
@@ -67,6 +74,11 @@
 		14937BA422730EBB00AD00F8 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		14937BA722731A3900AD00F8 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		14981BDF227FD3EB0024BCEB /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		14A58EBF227FFF2D00183A98 /* NotificationScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScreenViewController.swift; sourceTree = "<group>"; };
+		14A58EC1227FFF3800183A98 /* ProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewController.swift; sourceTree = "<group>"; };
+		14A58EC3227FFF4200183A98 /* CreateScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateScreenViewController.swift; sourceTree = "<group>"; };
+		14A58EC5227FFF4C00183A98 /* SearchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenViewController.swift; sourceTree = "<group>"; };
+		14A58EC7227FFF5C00183A98 /* FeedScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedScreenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +132,12 @@
 				142992272272F7DA00BC80DA /* Application */,
 				14937BA122730C0500AD00F8 /* Helper */,
 				142992282272F7E500BC80DA /* LoginScreen */,
+				14981BE3227FE2870024BCEB /* HomeScreen */,
+				14A58EBE227FFF0E00183A98 /* NotificationScreen */,
+				14A58EBD227FFDCC00183A98 /* ProfileScreen */,
+				14A58EBC227FFDC100183A98 /* CreateScreen */,
+				14A58EBB227FFDBA00183A98 /* SearchScreen */,
+				14A58EBA227FFDB500183A98 /* FeedScreen */,
 				142992002272F7A100BC80DA /* Assets.xcassets */,
 				142992022272F7A100BC80DA /* LaunchScreen.storyboard */,
 				142992052272F7A100BC80DA /* Info.plist */,
@@ -177,6 +195,54 @@
 				14981BDF227FD3EB0024BCEB /* BaseViewController.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		14981BE3227FE2870024BCEB /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				14114BE4227FE307005E161E /* HomeNavigationViewController.swift */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		14A58EBA227FFDB500183A98 /* FeedScreen */ = {
+			isa = PBXGroup;
+			children = (
+				14A58EC7227FFF5C00183A98 /* FeedScreenViewController.swift */,
+			);
+			path = FeedScreen;
+			sourceTree = "<group>";
+		};
+		14A58EBB227FFDBA00183A98 /* SearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				14A58EC5227FFF4C00183A98 /* SearchScreenViewController.swift */,
+			);
+			path = SearchScreen;
+			sourceTree = "<group>";
+		};
+		14A58EBC227FFDC100183A98 /* CreateScreen */ = {
+			isa = PBXGroup;
+			children = (
+				14A58EC3227FFF4200183A98 /* CreateScreenViewController.swift */,
+			);
+			path = CreateScreen;
+			sourceTree = "<group>";
+		};
+		14A58EBD227FFDCC00183A98 /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				14A58EC1227FFF3800183A98 /* ProfileScreenViewController.swift */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		14A58EBE227FFF0E00183A98 /* NotificationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				14A58EBF227FFF2D00183A98 /* NotificationScreenViewController.swift */,
+			);
+			path = NotificationScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,11 +377,17 @@
 			files = (
 				14981BE0227FD3EB0024BCEB /* BaseViewController.swift in Sources */,
 				14937BA822731A3900AD00F8 /* Spacing.swift in Sources */,
+				14A58EC4227FFF4200183A98 /* CreateScreenViewController.swift in Sources */,
 				14277E14227C439F00FF362C /* LoginButton.swift in Sources */,
 				14277E0A227C26E300FF362C /* UseCase.swift in Sources */,
+				14A58EC2227FFF3800183A98 /* ProfileScreenViewController.swift in Sources */,
 				1429922A2272F85500BC80DA /* LoginScreenViewController.swift in Sources */,
+				14A58EC8227FFF5C00183A98 /* FeedScreenViewController.swift in Sources */,
+				14114BE5227FE307005E161E /* HomeNavigationViewController.swift in Sources */,
 				1429922E2272F91400BC80DA /* LoginProtocols.swift in Sources */,
 				14277E0E227C283100FF362C /* LoginResponse.swift in Sources */,
+				14A58EC6227FFF4C00183A98 /* SearchScreenViewController.swift in Sources */,
+				14A58EC0227FFF2D00183A98 /* NotificationScreenViewController.swift in Sources */,
 				1429922C2272F8EA00BC80DA /* LoginScreenView.swift in Sources */,
 				14937BA522730EBB00AD00F8 /* UIColor+Extension.swift in Sources */,
 				14937BA322730C1600AD00F8 /* String+Extension.swift in Sources */,

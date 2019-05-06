@@ -3,7 +3,6 @@ import UIKit
 class LoginScreenViewControler: BaseViewController {
     private lazy var loginScreenView = LoginScreenView(delegate: self, insets)
     private let loginUseCase: LoginUseCase
-    private var insets = Spacing()
     
     init(_ loginUseCase: LoginUseCase = .init()) {
         self.loginUseCase = loginUseCase
@@ -20,22 +19,13 @@ class LoginScreenViewControler: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if #available(iOS 11.0, *) {
-            self.insets = Spacing(
-                top: view.safeAreaInsets.top,
-                bottom: view.safeAreaInsets.bottom,
-                left: view.safeAreaInsets.left,
-                right: view.safeAreaInsets.right
-            )
-        } else {
-            // Notch devices has minimum version of iOS 11
-        }
-        
         loginScreenView.insets = insets
     }
     
     func navigateToHomeScreen(_ user: User) {
-        print(user)
+        let home = HomeNavigationViewController(user: user)
+        self.dismiss(animated: false, completion: nil)
+        self.present(home, animated: true)
     }
     
     func handleLoginError(_ error: LoginUseCase.Error) {
@@ -73,11 +63,11 @@ extension LoginScreenViewControler: LoginScreenViewDelegate {
     }
     
     func navigateToForgetPassword() {
-        
+        // Later
     }
     
     
     func navigateToSignup() {
-        
+        // Later
     }
 }

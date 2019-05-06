@@ -1,14 +1,8 @@
-//
-//  BaseViewController.swift
-//  Instagram Clone
-//
-//  Created by CPU12071 on 5/6/19.
-//  Copyright © 2019 Le Duy Bach. All rights reserved.
-//
-
 import UIKit
 
 class BaseViewController: UIViewController {
+    
+    private (set) var insets = Spacing()
     
     func showSimpleAlert(title: String, message: String, cancelTitle: String) {
         let actions = [
@@ -30,5 +24,19 @@ class BaseViewController: UIViewController {
         
         actions.forEach { alertController.addAction($0) }
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if #available(iOS 11.0, *) {
+            self.insets = Spacing(
+                top: view.safeAreaInsets.top,
+                bottom: view.safeAreaInsets.bottom,
+                left: view.safeAreaInsets.left,
+                right: view.safeAreaInsets.right
+            )
+        } else {
+            // Notch devices has minimum version of iOS 11
+        }
     }
 }
