@@ -4,7 +4,7 @@ class LoginUseCase : UseCase {
     func execute(_ request: Credential,
                  completion: @escaping (LoginResponse) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let ur = LoginResponse.UserResponse(name: "bachld")
+            let ur = LoginResponse.UserResponse(name: "noti")
             let lr = LoginResponse(
                 userNotExist: false, wrongPassword: false, userInfo: ur
             )
