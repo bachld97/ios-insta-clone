@@ -33,12 +33,11 @@ class HomeNavigationViewController: UITabBarController {
     }
     
     private func setupViewControllers() -> [UIViewController] {
-//        let feed = FeedScreenViewController(of: loggedInUser)
 //        let search = SearchScreenViewController(excluding: loggedInUser)
 //        let create = CreateContentScreenViewController(of: loggedInUser)
 //        let notification = NotificationScreenViewController(of: loggedInUser)
 //        let profile = ProfileScreenViewController(of: loggedInUser)
-        let feed = FeedScreenViewController()
+        let feed = FeedScreenViewController(of: loggedInUser)
         let search = SearchScreenViewController()
         let create = CreateScreenViewController()
         let notification = NotificationScreenViewController()

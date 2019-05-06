@@ -2,7 +2,7 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
-    private (set) var insets = Spacing()
+    private (set) var insets = Spacing(top: 20, bottom: 0)
     
     func showSimpleAlert(title: String, message: String, cancelTitle: String) {
         let actions = [
@@ -38,5 +38,11 @@ class BaseViewController: UIViewController {
         } else {
             // Notch devices has minimum version of iOS 11
         }
+    }
+    
+    final func addSubViewController(_ viewController: UIViewController) {
+        addChild(viewController)
+        view.addSubview(viewController.view)
+        viewController.didMove(toParent: self)
     }
 }
