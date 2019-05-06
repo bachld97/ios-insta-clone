@@ -11,6 +11,7 @@
 		14277E0C227C273E00FF362C /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14277E0B227C273E00FF362C /* LoginUseCase.swift */; };
 		14277E0E227C283100FF362C /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14277E0D227C283100FF362C /* LoginResponse.swift */; };
 		14277E10227C289500FF362C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14277E0F227C289500FF362C /* User.swift */; };
+		14277E14227C439F00FF362C /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14277E13227C439F00FF362C /* LoginButton.swift */; };
 		142991FA2272F79F00BC80DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142991F92272F79F00BC80DA /* AppDelegate.swift */; };
 		142992012272F7A100BC80DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 142992002272F7A100BC80DA /* Assets.xcassets */; };
 		142992042272F7A100BC80DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 142992022272F7A100BC80DA /* LaunchScreen.storyboard */; };
@@ -22,6 +23,7 @@
 		14937BA322730C1600AD00F8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14937BA222730C1600AD00F8 /* String+Extension.swift */; };
 		14937BA522730EBB00AD00F8 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14937BA422730EBB00AD00F8 /* UIColor+Extension.swift */; };
 		14937BA822731A3900AD00F8 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14937BA722731A3900AD00F8 /* Spacing.swift */; };
+		14981BE0227FD3EB0024BCEB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14981BDF227FD3EB0024BCEB /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,7 @@
 		14277E0B227C273E00FF362C /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
 		14277E0D227C283100FF362C /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		14277E0F227C289500FF362C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		14277E13227C439F00FF362C /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		142991F62272F79F00BC80DA /* Instagram Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Instagram Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		142991F92272F79F00BC80DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		142992002272F7A100BC80DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -63,6 +66,7 @@
 		14937BA222730C1600AD00F8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		14937BA422730EBB00AD00F8 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		14937BA722731A3900AD00F8 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
+		14981BDF227FD3EB0024BCEB /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,8 @@
 				14937BA422730EBB00AD00F8 /* UIColor+Extension.swift */,
 				14937BA722731A3900AD00F8 /* Spacing.swift */,
 				14277E09227C26E300FF362C /* UseCase.swift */,
+				14277E13227C439F00FF362C /* LoginButton.swift */,
+				14981BDF227FD3EB0024BCEB /* BaseViewController.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -303,7 +309,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14981BE0227FD3EB0024BCEB /* BaseViewController.swift in Sources */,
 				14937BA822731A3900AD00F8 /* Spacing.swift in Sources */,
+				14277E14227C439F00FF362C /* LoginButton.swift in Sources */,
 				14277E0A227C26E300FF362C /* UseCase.swift in Sources */,
 				1429922A2272F85500BC80DA /* LoginScreenViewController.swift in Sources */,
 				1429922E2272F91400BC80DA /* LoginProtocols.swift in Sources */,

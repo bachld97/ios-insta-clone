@@ -85,12 +85,15 @@ class LoginScreenView: UIView {
     
     @objc private func signupOnClick() {
         delegate?.navigateToSignup()
+        hideKeys()
     }
     
     @objc private func loginOnClick() {
+        loginButton.showLoading()
         let username = usernameTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         delegate?.performLogin(withUsername: username, andPassword: password)
+        hideKeys()
     }
     
     private lazy var logoBanner: UILabel = {
@@ -113,6 +116,8 @@ class LoginScreenView: UIView {
         textField.layer.sublayerTransform = CATransform3DMakeTranslation(12, 0, 0)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
+        textField.returnKeyType = UIReturnKeyType.next
+        textField.delegate = self
         return textField
     }()
     
@@ -126,6 +131,8 @@ class LoginScreenView: UIView {
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.sublayerTransform = CATransform3DMakeTranslation(12, 0, 0)
         textField.isSecureTextEntry = true
+        textField.delegate = self
+        textField.returnKeyType = UIReturnKeyType.done
         return textField
     }()
     
@@ -159,14 +166,14 @@ class LoginScreenView: UIView {
         return button
     }()
     
-    private lazy var loginButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor.from(r: 70, g: 110, b: 175)
-        button.setTitle("Log in".localized, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setTitleColor(.lightGray, for: .highlighted)
+    private lazy var loginButton: LoginButton = {
+        let bgColor = UIColor.from(r: 70, g: 110, b: 175)
+        let button = LoginButton(
+            disabledColor: bgColor.withAlphaComponent(0.65),
+            highlightColor: bgColor.withAlphaComponent(0.75),
+            backgroundColor: bgColor)
         button.addTarget(self, action: #selector(loginOnClick), for: .touchUpInside)
-        button.layer.cornerRadius = 8
+        button.isEnabled = false
         return button
     }()
     
@@ -179,6 +186,7 @@ class LoginScreenView: UIView {
 
     init(delegate: LoginScreenViewDelegate, _ insets: Spacing) {
         self.insets = insets
+        self.delegate = delegate
         super.init(frame: .zero)
         backgroundColor = .white
         addSubview(logoBanner)
@@ -187,9 +195,45 @@ class LoginScreenView: UIView {
         addSubview(forgotPasswordButton)
         addSubview(loginButton)
         addSubview(signupStack)
+        let tapHideKey = UITapGestureRecognizer(target: self, action: #selector(hideKeys))
+        self.addGestureRecognizer(tapHideKey)
+    }
+    
+    @objc private func hideKeys() {
+        usernameTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func stopLoadingIndicator() {
+        self.loginButton.showwNotLoading()
+    }
+}
+
+extension LoginScreenView: UITextFieldDelegate {
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+        let otherTextField: UITextField
+        if textField == usernameTextField {
+            otherTextField = passwordTextField
+        } else {
+            otherTextField = usernameTextField
+        }
+        let curString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        loginButton.isEnabled =
+            !(otherTextField.text ?? "").isEmpty && !curString.isEmpty
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if (textField == usernameTextField) {
+            passwordTextField.becomeFirstResponder()
+        }
+        return true
     }
 }

@@ -1,11 +1,16 @@
 struct LoginResponse: Decodable {
     private enum CodingKeys: String, CodingKey {
-        case success = "success"
+        case userNotExist = "userNotFound"
+        case wrongPassword = "wrongPassword"
         case userInfo = "user"
     }
     
     var result: Result<User, LoginUseCase.Error> {
-        guard success else {
+        if userNotExist {
+            return .failure(.userNotExist)
+        }
+        
+        if wrongPassword {
             return .failure(.badCredential)
         }
         
@@ -16,8 +21,11 @@ struct LoginResponse: Decodable {
         return .success(ui.clientData)
     }
     
-    let success: Bool
+    let userNotExist: Bool
+    let wrongPassword: Bool
     let userInfo: UserResponse?
+    
+    
     struct UserResponse: Decodable {
         let name: String
         
