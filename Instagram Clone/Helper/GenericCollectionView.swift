@@ -27,4 +27,3 @@ class CollectionViewItem<CellType: ConfigurableCell, Item>: CellConfigurator
         (cell as! CellType).configure(item: item)
     }
 }
-

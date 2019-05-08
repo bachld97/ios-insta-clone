@@ -15,7 +15,7 @@ class FeedScreenViewController: BaseViewController {
     }
     
     private lazy var storyViewController = StoryViewController(viewingAs: loggedInUser)
-    //    private lazy var postViewController = PostViewController(viewingAs: loggedInUser)
+    private lazy var postViewController = PostViewController(viewingAs: loggedInUser)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ class FeedScreenViewController: BaseViewController {
         self.navigationItem.title = "Instagram"
         
         addSubViewController(storyViewController)
-        view.backgroundColor = .blue
+        addSubViewController(postViewController)
     }
     
     override func viewDidLayoutSubviews() {
@@ -33,6 +33,13 @@ class FeedScreenViewController: BaseViewController {
             y: 0,
             width: view.frame.width - insets.left - insets.right,
             height: storyViewController.collectiveHeight
+        )
+        
+        postViewController.view.frame = CGRect(
+            x: 0,
+            y: storyViewController.view.frame.maxY,
+            width: view.frame.width - insets.left - insets.right,
+            height: view.frame.height - storyViewController.view.frame.height
         )
     }
 }

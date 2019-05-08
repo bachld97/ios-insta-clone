@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		14114BE5227FE307005E161E /* HomeNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14114BE4227FE307005E161E /* HomeNavigationViewController.swift */; };
+		141C4C4E2282DE4400C3DB0C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141C4C4D2282DE4400C3DB0C /* PostCell.swift */; };
+		141C4C502282DE5D00C3DB0C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141C4C4F2282DE5D00C3DB0C /* Post.swift */; };
+		141C4C522282DE7E00C3DB0C /* FetchPostsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141C4C512282DE7E00C3DB0C /* FetchPostsUseCase.swift */; };
+		141C4C542282DE8E00C3DB0C /* PostCreatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141C4C532282DE8E00C3DB0C /* PostCreatorView.swift */; };
+		141C4C562282DE9F00C3DB0C /* PostContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141C4C552282DE9F00C3DB0C /* PostContentView.swift */; };
+		141C4C582282DEB200C3DB0C /* PostCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141C4C572282DEB200C3DB0C /* PostCommentView.swift */; };
 		141FCF51228019BA00078ED3 /* GenericCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FCF50228019BA00078ED3 /* GenericCollectionView.swift */; };
 		14277E0A227C26E300FF362C /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14277E09227C26E300FF362C /* UseCase.swift */; };
 		14277E0C227C273E00FF362C /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14277E0B227C273E00FF362C /* LoginUseCase.swift */; };
@@ -58,6 +64,12 @@
 
 /* Begin PBXFileReference section */
 		14114BE4227FE307005E161E /* HomeNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationViewController.swift; sourceTree = "<group>"; };
+		141C4C4D2282DE4400C3DB0C /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		141C4C4F2282DE5D00C3DB0C /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		141C4C512282DE7E00C3DB0C /* FetchPostsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPostsUseCase.swift; sourceTree = "<group>"; };
+		141C4C532282DE8E00C3DB0C /* PostCreatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreatorView.swift; sourceTree = "<group>"; };
+		141C4C552282DE9F00C3DB0C /* PostContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentView.swift; sourceTree = "<group>"; };
+		141C4C572282DEB200C3DB0C /* PostCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentView.swift; sourceTree = "<group>"; };
 		141FCF50228019BA00078ED3 /* GenericCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCollectionView.swift; sourceTree = "<group>"; };
 		14277E09227C26E300FF362C /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
 		14277E0B227C273E00FF362C /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
@@ -120,6 +132,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		141C4C4C2282DD9900C3DB0C /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				14A58EC922800F4C00183A98 /* PostViewController.swift */,
+				141C4C4D2282DE4400C3DB0C /* PostCell.swift */,
+				141C4C512282DE7E00C3DB0C /* FetchPostsUseCase.swift */,
+				141C4C532282DE8E00C3DB0C /* PostCreatorView.swift */,
+				141C4C552282DE9F00C3DB0C /* PostContentView.swift */,
+				141C4C572282DEB200C3DB0C /* PostCommentView.swift */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
 		142991ED2272F79F00BC80DA = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +208,7 @@
 				142991F92272F79F00BC80DA /* AppDelegate.swift */,
 				14277E0F227C289500FF362C /* User.swift */,
 				143873B822803A78000B14F7 /* Story.swift */,
+				141C4C4F2282DE5D00C3DB0C /* Post.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -235,9 +261,9 @@
 		14A58EBA227FFDB500183A98 /* FeedScreen */ = {
 			isa = PBXGroup;
 			children = (
+				141C4C4C2282DD9900C3DB0C /* Post */,
 				143873BE22803ABB000B14F7 /* Story */,
 				14A58EC7227FFF5C00183A98 /* FeedScreenViewController.swift */,
-				14A58EC922800F4C00183A98 /* PostViewController.swift */,
 			);
 			path = FeedScreen;
 			sourceTree = "<group>";
@@ -408,7 +434,9 @@
 				14A58ECA22800F4C00183A98 /* PostViewController.swift in Sources */,
 				14981BE0227FD3EB0024BCEB /* BaseViewController.swift in Sources */,
 				14937BA822731A3900AD00F8 /* Spacing.swift in Sources */,
+				141C4C582282DEB200C3DB0C /* PostCommentView.swift in Sources */,
 				14A58ECC22800F5D00183A98 /* StoryViewController.swift in Sources */,
+				141C4C4E2282DE4400C3DB0C /* PostCell.swift in Sources */,
 				14A58EC4227FFF4200183A98 /* CreateScreenViewController.swift in Sources */,
 				143873C12280525F000B14F7 /* YourStoryCell.swift in Sources */,
 				14277E14227C439F00FF362C /* LoginButton.swift in Sources */,
@@ -418,15 +446,19 @@
 				14A58EC8227FFF5C00183A98 /* FeedScreenViewController.swift in Sources */,
 				143873B922803A78000B14F7 /* Story.swift in Sources */,
 				14114BE5227FE307005E161E /* HomeNavigationViewController.swift in Sources */,
+				141C4C542282DE8E00C3DB0C /* PostCreatorView.swift in Sources */,
 				1429922E2272F91400BC80DA /* LoginProtocols.swift in Sources */,
 				143873BD22803AA8000B14F7 /* StoryCell.swift in Sources */,
 				14277E0E227C283100FF362C /* LoginResponse.swift in Sources */,
 				14A58EC6227FFF4C00183A98 /* SearchScreenViewController.swift in Sources */,
+				141C4C502282DE5D00C3DB0C /* Post.swift in Sources */,
 				141FCF51228019BA00078ED3 /* GenericCollectionView.swift in Sources */,
 				14A58EC0227FFF2D00183A98 /* NotificationScreenViewController.swift in Sources */,
 				1429922C2272F8EA00BC80DA /* LoginScreenView.swift in Sources */,
 				14937BA522730EBB00AD00F8 /* UIColor+Extension.swift in Sources */,
+				141C4C562282DE9F00C3DB0C /* PostContentView.swift in Sources */,
 				14937BA322730C1600AD00F8 /* String+Extension.swift in Sources */,
+				141C4C522282DE7E00C3DB0C /* FetchPostsUseCase.swift in Sources */,
 				142991FA2272F79F00BC80DA /* AppDelegate.swift in Sources */,
 				14277E0C227C273E00FF362C /* LoginUseCase.swift in Sources */,
 				14277E10227C289500FF362C /* User.swift in Sources */,

@@ -4,7 +4,7 @@ class StoryViewController: UICollectionViewController {
     typealias StoryCollectionCell = CollectionViewItem<StoryCell, Story>
     typealias YourStoryCollectionCell = CollectionViewItem<YourStoryCell, User>
     
-    private let storyContentDimen: CGFloat = 64
+    private let storyContentDimen: CGFloat = 68
     var collectiveHeight: CGFloat {
         return storyContentDimen + 24
     }
@@ -31,15 +31,15 @@ class StoryViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareCollectionView()
         fetchStories.execute(loggedInUser, completion: storiesDidLoad(_:))
-        
+    }
+    
+    private func prepareCollectionView() {
         layout.itemSize = CGSize(width: storyContentDimen, height: collectiveHeight)
-        
         self.collectionView?.bounces = false
         self.collectionView?.backgroundColor = .white
         self.collectionView?.showsHorizontalScrollIndicator = false
-
-        
         self.collectionView?.register(StoryCell.self, forCellWithReuseIdentifier:
             StoryCollectionCell.reuseId)
         self.collectionView?.register(YourStoryCell.self, forCellWithReuseIdentifier:
