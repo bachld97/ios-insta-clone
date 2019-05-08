@@ -14,6 +14,7 @@
 		141C4C542282DE8E00C3DB0C /* PostCreatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141C4C532282DE8E00C3DB0C /* PostCreatorView.swift */; };
 		141C4C562282DE9F00C3DB0C /* PostContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141C4C552282DE9F00C3DB0C /* PostContentView.swift */; };
 		141C4C582282DEB200C3DB0C /* PostCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141C4C572282DEB200C3DB0C /* PostCommentView.swift */; };
+		141C4C5A2282F4AB00C3DB0C /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141C4C592282F4AB00C3DB0C /* UIImage+Extension.swift */; };
 		141FCF51228019BA00078ED3 /* GenericCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141FCF50228019BA00078ED3 /* GenericCollectionView.swift */; };
 		14277E0A227C26E300FF362C /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14277E09227C26E300FF362C /* UseCase.swift */; };
 		14277E0C227C273E00FF362C /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14277E0B227C273E00FF362C /* LoginUseCase.swift */; };
@@ -70,6 +71,7 @@
 		141C4C532282DE8E00C3DB0C /* PostCreatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreatorView.swift; sourceTree = "<group>"; };
 		141C4C552282DE9F00C3DB0C /* PostContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostContentView.swift; sourceTree = "<group>"; };
 		141C4C572282DEB200C3DB0C /* PostCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentView.swift; sourceTree = "<group>"; };
+		141C4C592282F4AB00C3DB0C /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		141FCF50228019BA00078ED3 /* GenericCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCollectionView.swift; sourceTree = "<group>"; };
 		14277E09227C26E300FF362C /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
 		14277E0B227C273E00FF362C /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				14277E13227C439F00FF362C /* LoginButton.swift */,
 				14981BDF227FD3EB0024BCEB /* BaseViewController.swift */,
 				141FCF50228019BA00078ED3 /* GenericCollectionView.swift */,
+				141C4C592282F4AB00C3DB0C /* UIImage+Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				141C4C4E2282DE4400C3DB0C /* PostCell.swift in Sources */,
 				14A58EC4227FFF4200183A98 /* CreateScreenViewController.swift in Sources */,
 				143873C12280525F000B14F7 /* YourStoryCell.swift in Sources */,
+				141C4C5A2282F4AB00C3DB0C /* UIImage+Extension.swift in Sources */,
 				14277E14227C439F00FF362C /* LoginButton.swift in Sources */,
 				14277E0A227C26E300FF362C /* UseCase.swift in Sources */,
 				14A58EC2227FFF3800183A98 /* ProfileScreenViewController.swift in Sources */,

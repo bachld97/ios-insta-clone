@@ -4,9 +4,9 @@ class StoryViewController: UICollectionViewController {
     typealias StoryCollectionCell = CollectionViewItem<StoryCell, Story>
     typealias YourStoryCollectionCell = CollectionViewItem<YourStoryCell, User>
     
-    private let storyContentDimen: CGFloat = 68
+    private let storyContentDimen: CGFloat = 64
     var collectiveHeight: CGFloat {
-        return storyContentDimen + 24
+        return storyContentDimen + 16
     }
     
     private let fetchStories: FetchStoriesUseCase

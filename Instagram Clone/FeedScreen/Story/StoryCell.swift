@@ -4,7 +4,8 @@ class StoryCell: UICollectionViewCell, ConfigurableCell {
     
     private lazy var userLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.textAlignment = .center
         return label
     }()
     
@@ -23,8 +24,8 @@ class StoryCell: UICollectionViewCell, ConfigurableCell {
     
     override var frame: CGRect {
         didSet {
-            let padding: CGFloat = 10.0
-            let imageDimen = frame.width - 2 * padding
+            let padding: CGFloat = 8.0
+            let imageDimen = frame.width - 2 * padding - 8
             
             storyImage.frame = CGRect(
                 x: padding, y: padding,
@@ -33,8 +34,8 @@ class StoryCell: UICollectionViewCell, ConfigurableCell {
             
             let uY: CGFloat = storyImage.frame.maxY + padding
             userLabel.frame = CGRect(
-                x: padding, y: uY,
-                width: imageDimen, height: frame.height - uY - padding)
+                x: padding / 2, y: uY,
+                width: frame.width - padding, height: frame.height - uY - padding)
         }
     }
     

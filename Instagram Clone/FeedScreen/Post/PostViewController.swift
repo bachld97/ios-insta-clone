@@ -30,8 +30,6 @@ class PostViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.collectionView?.showsVerticalScrollIndicator = false
         self.collectionView?.register(
             PostCell.self, forCellWithReuseIdentifier: PostCollectionCell.reuseId)
-        
-        self.collectionView?.backgroundColor = .purple
     }
     
     private func postsDidLoad(posts: [Post]) {

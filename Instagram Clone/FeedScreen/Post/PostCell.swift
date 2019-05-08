@@ -1,7 +1,7 @@
 import UIKit
 
 class PostCell: UICollectionViewCell, ConfigurableCell {
-    static let headerSize: CGFloat = 48
+    static let headerSize: CGFloat = 56
     typealias Item = Post
     
     private var imageAspectRatio: CGFloat = 1
