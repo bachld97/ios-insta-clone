@@ -97,13 +97,7 @@ class PostContentView: UIView {
         return button
     }()
 
-    override init(frame: CGRect) {
-        likedByMe = false
-        super.init(frame: frame)
-        [contentImageView, likeButton, commentButton, shareButton].forEach {
-            addSubview($0)
-        }
-        
+    fileprivate func setupConstraints() {
         contentImageView.anchor(
             top: topAnchor, leading: leadingAnchor,
             bottom: nil, trailing: trailingAnchor
@@ -117,7 +111,7 @@ class PostContentView: UIView {
             padding: PostContentView.buttonPadding,
             size: PostContentView.buttonSize
         )
-     
+        
         commentButton.anchor(
             top: contentImageView.bottomAnchor,
             leading: likeButton.trailingAnchor,
@@ -135,6 +129,16 @@ class PostContentView: UIView {
             padding: PostContentView.buttonPadding,
             size: PostContentView.buttonSize
         )
+    }
+    
+    override init(frame: CGRect) {
+        likedByMe = false
+        super.init(frame: frame)
+        [contentImageView, likeButton, commentButton, shareButton].forEach {
+            addSubview($0)
+        }
+        
+        setupConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -13,9 +13,13 @@ class FetchPostsUseCase: UseCase {
 
     private func posts() -> [Post] {
         let u1 = User(name: "bachld")
-        let content1 = Post.Content(caption: "Hello world", imageUrl: "", likeCount: 14)
+        let content1 = Post.Content(
+            caption: "Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI.",
+            imageUrl: "", likeCount: 14)
         let comments = [
-            Post.Comment(creator: u1, content: "Hello", replies: []),
+            Post.Comment(
+                creator: u1, content: "Hy I am a comment",
+                replies: []),
             Post.Comment(creator: u1, content: "World", replies: [])
         ]
         

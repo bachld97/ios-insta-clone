@@ -7,7 +7,7 @@ class PostCell: UICollectionViewCell, ConfigurableCell {
     private var imageAspectRatio: CGFloat = 1
     private lazy var creatorView = PostCreatorView()
     private lazy var postContentView = PostContentView()
-    private lazy var commentView = PostCommentView()
+    private lazy var commentView = PostInteractionView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
