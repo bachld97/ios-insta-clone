@@ -76,6 +76,9 @@ class HomeNavigationViewController: UITabBarController {
     }
     
     private func removeTitles() {
-        
+        for item in self.tabBar.items ?? [] {
+            item.title = nil
+            item.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -12, right: 0)
+        }
     }
 }

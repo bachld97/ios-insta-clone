@@ -18,6 +18,7 @@ class PostContentView: UIView {
         gesture.numberOfTapsRequired = 2
         imageView.addGestureRecognizer(gesture)
         imageView.isUserInteractionEnabled = true
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -29,17 +30,7 @@ class PostContentView: UIView {
     }()
     
     
-    @objc private func imageDoubleTap() {
-        contentImageView.isUserInteractionEnabled = false
-        likedByMe = true
-        likeButton.change(toImage: likedImage, animated: true)
-        
-        let overlaySize = CGSize(width: 72, height: 72)
-        contentImageView.addSubview(overlayHeartImageView)
-
-        overlayHeartImageView.image = likedImage
-        overlayHeartImageView.centerInSuperview(size: overlaySize)
-        
+    fileprivate func animateOverlayHeart() {
         let duration = 0.12
         
         let pulse1 = CABasicAnimation(keyPath: "transform.scale")
@@ -59,7 +50,7 @@ class PostContentView: UIView {
         
         pulse2.fromValue = 1.25
         pulse2.toValue = 1
-
+        
         pulse3.fromValue = 1
         pulse3.toValue = 1.1
         
@@ -72,8 +63,25 @@ class PostContentView: UIView {
         group.duration = duration * 4
         group.animations = [pulse1, pulse2, pulse3, shrink]
         group.delegate = self
-
+        
+        overlayHeartImageView.layer.setAffineTransform(.init(scaleX: 0, y: 0))
         overlayHeartImageView.layer.add(group, forKey: nil)
+    }
+    
+    fileprivate func setupOverlayHeart() {
+        let overlaySize = CGSize(width: 72, height: 72)
+        contentImageView.addSubview(overlayHeartImageView)
+        overlayHeartImageView.image = likedImage
+        overlayHeartImageView.centerInSuperview(size: overlaySize)
+    }
+    
+    @objc private func imageDoubleTap() {
+        contentImageView.isUserInteractionEnabled = false
+        likedByMe = true
+        likeButton.change(toImage: likedImage, animated: true)
+        
+        setupOverlayHeart()
+        animateOverlayHeart()
     }
     
     @objc private func likeOnClick() {
@@ -161,7 +169,6 @@ class PostContentView: UIView {
 extension PostContentView: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         contentImageView.isUserInteractionEnabled = true
-        overlayHeartImageView.removeFromSuperview()
+        self.overlayHeartImageView.removeFromSuperview()
     }
-
 }

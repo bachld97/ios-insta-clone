@@ -1,7 +1,9 @@
 import UIKit
+import Kingfisher
 
 extension UIImageView {
-    func image(fromUrl url: String) {
-        print("Load image from \(url)")
+    func image(fromUrl urlString: String) {
+        let url = URL(string: urlString)
+        kf.setImage(with: url)
     }
 }

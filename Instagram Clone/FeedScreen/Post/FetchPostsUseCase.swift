@@ -15,16 +15,19 @@ class FetchPostsUseCase: UseCase {
         let u1 = User(name: "bachld")
         let content1 = Post.Content(
             caption: "Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI.",
-            imageUrl: "", likeCount: 14)
+            imageUrl: "https://via.placeholder.com/480/",
+            likeCount: 14)
+        
         let comments = [
-            Post.Comment(
-                creator: u1, content: "Hy I am a comment",
-                replies: []),
+            Post.Comment(creator: u1, content: "Hy I am a comment",replies: []),
             Post.Comment(creator: u1, content: "World", replies: [])
         ]
         
         let u2 = User(name: "ldbach")
-        let content2 = Post.Content(caption: "Hi world", imageUrl: "", likeCount: 27)
+        let content2 = Post.Content(
+            caption: "Hi world",
+            imageUrl: "https://via.placeholder.com/480/",
+            likeCount: 27)
         
         let post = Post(creator: u1, content: content1, comments: comments)
         let post2 = Post(creator: u2, content: content2, comments: comments)
