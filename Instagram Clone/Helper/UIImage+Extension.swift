@@ -16,4 +16,7 @@ extension UIImage {
         return imageWithInsets!
     }
     
+    static func original(named name: String) -> UIImage? {
+        return UIImage(named: name)?.withRenderingMode(.alwaysOriginal)
+    }
 }

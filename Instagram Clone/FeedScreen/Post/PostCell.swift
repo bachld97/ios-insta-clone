@@ -39,7 +39,7 @@ class PostCell: UICollectionViewCell, ConfigurableCell {
             postContentView.frame = CGRect(
                 x: 0, y: creatorView.frame.maxY,
                 width: frame.width,
-                height: frame.width * imageAspectRatio
+                height: frame.width * imageAspectRatio + 56
             )
             
             commentView.frame = CGRect(

@@ -10,6 +10,7 @@ struct Post {
         let caption: String
         let imageUrl: String
         let likeCount: Int
+        let likedByMe: Bool = false
     }
     
     struct Comment {

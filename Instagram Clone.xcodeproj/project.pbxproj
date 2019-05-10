@@ -44,6 +44,9 @@
 		14A58EC8227FFF5C00183A98 /* FeedScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A58EC7227FFF5C00183A98 /* FeedScreenViewController.swift */; };
 		14A58ECA22800F4C00183A98 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A58EC922800F4C00183A98 /* PostViewController.swift */; };
 		14A58ECC22800F5D00183A98 /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A58ECB22800F5D00183A98 /* StoryViewController.swift */; };
+		14BE625B2285115A007FBE77 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BE625A2285115A007FBE77 /* UIView+Extensions.swift */; };
+		14BE625D22852216007FBE77 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BE625C22852216007FBE77 /* UIImageView+Extensions.swift */; };
+		14BE625F228527ED007FBE77 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BE625E228527ED007FBE77 /* UIButton+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +110,9 @@
 		14A58EC7227FFF5C00183A98 /* FeedScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedScreenViewController.swift; sourceTree = "<group>"; };
 		14A58EC922800F4C00183A98 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		14A58ECB22800F5D00183A98 /* StoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
+		14BE625A2285115A007FBE77 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		14BE625C22852216007FBE77 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		14BE625E228527ED007FBE77 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +255,9 @@
 				14981BDF227FD3EB0024BCEB /* BaseViewController.swift */,
 				141FCF50228019BA00078ED3 /* GenericCollectionView.swift */,
 				141C4C592282F4AB00C3DB0C /* UIImage+Extension.swift */,
+				14BE625A2285115A007FBE77 /* UIView+Extensions.swift */,
+				14BE625C22852216007FBE77 /* UIImageView+Extensions.swift */,
+				14BE625E228527ED007FBE77 /* UIButton+Extensions.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -439,6 +448,7 @@
 				14937BA822731A3900AD00F8 /* Spacing.swift in Sources */,
 				141C4C582282DEB200C3DB0C /* PostCommentView.swift in Sources */,
 				14A58ECC22800F5D00183A98 /* StoryViewController.swift in Sources */,
+				14BE625B2285115A007FBE77 /* UIView+Extensions.swift in Sources */,
 				141C4C4E2282DE4400C3DB0C /* PostCell.swift in Sources */,
 				14A58EC4227FFF4200183A98 /* CreateScreenViewController.swift in Sources */,
 				143873C12280525F000B14F7 /* YourStoryCell.swift in Sources */,
@@ -447,6 +457,7 @@
 				14277E0A227C26E300FF362C /* UseCase.swift in Sources */,
 				14A58EC2227FFF3800183A98 /* ProfileScreenViewController.swift in Sources */,
 				1429922A2272F85500BC80DA /* LoginScreenViewController.swift in Sources */,
+				14BE625D22852216007FBE77 /* UIImageView+Extensions.swift in Sources */,
 				14A58EC8227FFF5C00183A98 /* FeedScreenViewController.swift in Sources */,
 				143873B922803A78000B14F7 /* Story.swift in Sources */,
 				14114BE5227FE307005E161E /* HomeNavigationViewController.swift in Sources */,
@@ -466,6 +477,7 @@
 				142991FA2272F79F00BC80DA /* AppDelegate.swift in Sources */,
 				14277E0C227C273E00FF362C /* LoginUseCase.swift in Sources */,
 				14277E10227C289500FF362C /* User.swift in Sources */,
+				14BE625F228527ED007FBE77 /* UIButton+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -64,7 +64,7 @@ class PostViewController: UICollectionViewController, UICollectionViewDelegateFl
        
         let post = posts[indexPath.row].item
         let headerSize = PostCell.headerSize
-        let contentSize = view.frame.width * post.aspectRatio
+        let contentSize = view.frame.width * post.aspectRatio + 56
         let commentSize: CGFloat = 56.0
         
         return CGSize(width: view.frame.width,
