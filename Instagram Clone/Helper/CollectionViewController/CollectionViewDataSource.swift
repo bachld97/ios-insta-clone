@@ -14,7 +14,6 @@ open class CollectionViewDataSource: NSObject {
                 return index
             }
         }
-        
         return nil
     }
     
@@ -27,7 +26,7 @@ open class CollectionViewDataSource: NSObject {
     }
     
     open func item(at indexPath: IndexPath) -> Any? {
-        return objects?[indexPath.row]
+        return objects?[indexPath.item]
     }
     
     open func cellClass(at indexPath: IndexPath) -> CollectionViewCell.Type? {

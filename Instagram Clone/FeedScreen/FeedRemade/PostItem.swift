@@ -1,6 +1,6 @@
 class PostItem {
     private var isTextExpanded = false
-    private (set) var post: Post
+    let post: Post
     
     init(_ post: Post) {
         self.post = post

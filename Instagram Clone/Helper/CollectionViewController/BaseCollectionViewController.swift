@@ -97,16 +97,11 @@ open class BaseCollectionViewController: UICollectionViewController, UICollectio
         ) as! CollectionViewCell
         
         cell.item = dataSource?.item(at: indexPath)
-//        cell.viewController = viewController()
         cell.viewController = self
         return cell
     }
     
-    open func viewController() -> BaseCollectionViewController {
-        return self
-    }
-    
-    open func getType() -> BaseCollectionViewController.Type {
-        return BaseCollectionViewController.self
+    func flowLayout() -> UICollectionViewFlowLayout? {
+        return collectionViewLayout as? UICollectionViewFlowLayout
     }
 }

@@ -7,6 +7,8 @@ class NewFeedScreenViewController: BaseCollectionViewController {
     
     private let user: User
     
+    private let feedDataSource = FeedPostDataSource()
+    
     init(viewingAs user: User,
          fetchPosts: FetchPostsUseCase = .init(),
          fetchStories: FetchStoriesUseCase = .init()) {
@@ -31,14 +33,24 @@ class NewFeedScreenViewController: BaseCollectionViewController {
     }
     
     private func postsFetched(_ posts: [Post]) {
-        self.dataSource = FeedPostDataSource(posts: posts.map { return PostItem($0) })
+        feedDataSource.posts = posts.map {
+            return PostItem($0)
+        }
+        self.dataSource = feedDataSource
     }
     
     private func storiesFetched(_ stories: [Story]) {
-        
+        feedDataSource.stories = stories.map {
+            return StoryItem($0)
+        }
+        self.dataSource = feedDataSource
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if indexPath.item == 0 {
+            return .width(view.frame.width, height: 80)
+        }
         
         var h = PostCollectionViewCell.fixedHeight
         let w = view.frame.width
@@ -50,34 +62,16 @@ class NewFeedScreenViewController: BaseCollectionViewController {
         
         return .width(w, height: w + h)
     }
-    
-    override func viewController() -> BaseCollectionViewController {
-        return self
-    }
 }
 
 extension NewFeedScreenViewController: PostLikeUnlikeDelegate, PostNavigateCommentDelegate, PostNavigateShareDelegate {
     func postLiked(_ postId: Post.IdType) {
         print("Post liked: \(postId)")
-//        updateLocalLike(increaseLike: true, forPostWith: postId)
     }
     
      func postUnliked(_ postId: Post.IdType) {
         print("Post unliked: \(postId)")
-//        updateLocalLike(increaseLike: false, forPostWith: postId)
     }
-    
-//    private func updateLocalLike(increaseLike: Bool, forPostWith postId: Post.IdType) {
-//        guard let index = dataSource?.firstIndex(predicate: { obj in
-//            guard let item = obj as? PostItem else {
-//                return false
-//            }
-//            return item.post.postId == postId
-//        }) else {
-//            return
-//        }
-//
-//    }
     
     func navigateComment(_ postId: Post.IdType) {
         print("To comment: \(postId)")

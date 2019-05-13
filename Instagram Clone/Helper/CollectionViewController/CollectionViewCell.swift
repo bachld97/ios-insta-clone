@@ -11,7 +11,7 @@ open class CollectionViewCell: UICollectionViewCell {
     
     open var lineDivider: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.from(r: 0, g: 0, b: 0, a: 0.5)
+        view.backgroundColor = UIColor.from(r: 0, g: 0, b: 0, a: 0.3)
         return view
     }()
     
@@ -31,7 +31,7 @@ open class CollectionViewCell: UICollectionViewCell {
             top: nil, leading: leadingAnchor,
             bottom: bottomAnchor, trailing: trailingAnchor,
             padding: .zero,
-            size: .init(width: 0, height: 0.5)
+            size: .init(width: 0, height: 0.25)
         )
     }
     

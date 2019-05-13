@@ -16,6 +16,7 @@ class PostCreatorView: UIView {
     private lazy var settingButton: UIButton = {
         let b = UIButton()
         b.backgroundColor = .lightGray
+        b.invisible()
         return b
     }()
     

@@ -1,8 +1,17 @@
+import Foundation
+
 class FetchStoriesUseCase: UseCase {
     func execute(_ request: User, completion: @escaping ([Story]) -> Void) {
-        let bachld = User(name: "bachld")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            let stories = self.stories()
+            completion(stories)
+        }
+    }
+    
+    private func stories() -> [Story] {
+        let bachld = User(name: "yhgpq")
         let ldbach = User(name: "ldbach")
-        let stories = [
+        return [
             Story(user: bachld, content: "feed"),
             Story(user: ldbach, content: "create"),
             Story(user: bachld, content: "feed"),
@@ -16,7 +25,6 @@ class FetchStoriesUseCase: UseCase {
             Story(user: bachld, content: "feed"),
             Story(user: ldbach, content: "create")
         ]
-        completion(stories)
     }
     
     typealias Request = User
