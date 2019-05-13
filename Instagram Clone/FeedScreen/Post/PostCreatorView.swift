@@ -15,6 +15,7 @@ class PostCreatorView: UIView {
     
     private lazy var settingButton: UIButton = {
         let b = UIButton()
+        b.backgroundColor = .lightGray
         return b
     }()
     
@@ -23,6 +24,37 @@ class PostCreatorView: UIView {
         addSubview(avaImageView)
         addSubview(creatorNameLabel)
         addSubview(settingButton)
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
+        let padding = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        
+        avaImageView.anchor(
+            top: topAnchor,
+            leading: leadingAnchor,
+            bottom: bottomAnchor,
+            trailing: nil,
+            padding: padding
+        )
+        avaImageView.aspectRatio(widthToHeight: 1)
+        
+        settingButton.anchor(
+            top: topAnchor,
+            leading: nil,
+            bottom: bottomAnchor,
+            trailing: trailingAnchor,
+            padding: padding
+        )
+        settingButton.aspectRatio(widthToHeight: 1)
+        
+        creatorNameLabel.anchor(
+            top: topAnchor,
+            leading: avaImageView.trailingAnchor,
+            bottom: bottomAnchor,
+            trailing: settingButton.leadingAnchor,
+            padding: padding
+        )
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,31 +64,9 @@ class PostCreatorView: UIView {
     func configure(with post: Post) {
         creatorNameLabel.text = post.creator.name
     }
- 
-    override var frame: CGRect {
-        didSet {
-            let padding: CGFloat = 8.0
-            avaImageView.frame = CGRect(
-                x: padding,
-                y: padding,
-                width: frame.height - 2 * padding,
-                height: frame.height - 2 * padding
-            )
-            avaImageView.layer.cornerRadius = avaImageView.frame.width / 2
-            
-            creatorNameLabel.frame = CGRect(
-                x: avaImageView.frame.maxX + padding,
-                y: padding,
-                width: frame.width - padding * 2,
-                height: frame.height - 2 * padding
-            )
-            
-            settingButton.frame = CGRect(
-                x: frame.width - padding - 32,
-                y: (frame.height - 32) / 2,
-                width: 32,
-                height: 32
-            )
-        }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        avaImageView.layer.cornerRadius = avaImageView.frame.size.width / 2
     }
 }

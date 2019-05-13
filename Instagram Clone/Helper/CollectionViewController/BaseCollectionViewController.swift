@@ -29,6 +29,22 @@ open class BaseCollectionViewController: UICollectionViewController, UICollectio
             BaseCollectionViewCell.self,
             forCellWithReuseIdentifier: NSStringFromClass(BaseCollectionViewCell.self)
         )
+        // collectionView.refreshControl = refreshControl
+        if #available(iOS 10.0, *) {
+            collectionView.refreshControl = refreshControl
+        } else {
+            collectionView.addSubview(refreshControl)
+        }
+    }
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        return rc
+    }()
+    
+    @objc open func handleRefresh() {
+        print("Should reload")
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -37,6 +53,7 @@ open class BaseCollectionViewController: UICollectionViewController, UICollectio
     
     open func dataSource(didChangeFrom oldSource: CollectionViewDataSource?,
                          to newSource: CollectionViewDataSource?) {
+        refreshControl.endRefreshing()
         collectionView?.reloadData()
     }
     
@@ -81,92 +98,5 @@ open class BaseCollectionViewController: UICollectionViewController, UICollectio
         
         cell.item = dataSource?.item(at: indexPath)
         return cell
-    }
-}
-
-final class BaseCollectionViewCell: CollectionViewCell {
-    private lazy var label: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.backgroundColor = .white
-        label.textAlignment = .center
-        return label
-    }()
-
-    override func prepareUI() {
-        super.prepareUI()
-        addSubview(label)
-        label.anchor(
-            top: topAnchor,
-            leading: leadingAnchor,
-            bottom: lineDivider.topAnchor,
-            trailing: trailingAnchor
-        )
-    }
-    
-    override func configureCell(with item: Any?) {
-        label.text = String(describing: item)
-    }
-}
-
-open class CollectionViewDataSource: NSObject {
-    public var objects: [Any]? = nil
-    
-    open func numberOfSections() -> Int {
-        return 1
-    }
-    
-    open func numberOfItems(inSection section: Int) -> Int {
-        return objects?.count ?? 0
-    }
-    
-    open func item(at indexPath: IndexPath) -> Any? {
-        return objects?[indexPath.row]
-    }
-    
-    open func cellClass(at indexPath: IndexPath) -> CollectionViewCell.Type? {
-        return nil
-    }
-
-    open func cellClasses() -> [CollectionViewCell.Type] {
-        return []
-    }
-}
-
-open class CollectionViewCell: UICollectionViewCell {
-    public var item: Any? {
-        didSet {
-            configureCell(with: item)
-        }
-    }
-    
-    open var lineDivider: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.from(r: 0, g: 0, b: 0, a: 0.5)
-        return view
-    }()
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        prepareUI()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    open func prepareUI() {
-        clipsToBounds = true
-        addSubview(lineDivider)
-        lineDivider.anchor(
-            top: nil, leading: leadingAnchor,
-            bottom: bottomAnchor, trailing: trailingAnchor,
-            padding: .zero,
-            size: .init(width: 0, height: 0.5)
-        )
-    }
-
-    open func configureCell(with item: Any?) {
-        print("Configure cell with item: \(String(describing: item))")
     }
 }

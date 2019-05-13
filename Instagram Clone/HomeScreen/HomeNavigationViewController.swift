@@ -38,7 +38,7 @@ class HomeNavigationViewController: UITabBarController {
 //        let notification = NotificationScreenViewController(of: loggedInUser)
 //        let profile = ProfileScreenViewController(of: loggedInUser)
         let feed = FeedScreenViewController(of: loggedInUser)
-        let search = SearchScreenViewController()
+        let search = NewFeedScreenViewController(viewingAs: loggedInUser)
         let create = CreateScreenViewController()
         let notification = NotificationScreenViewController()
         let profile = ProfileScreenViewController()

@@ -49,6 +49,11 @@
 		14BE625D22852216007FBE77 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BE625C22852216007FBE77 /* UIImageView+Extensions.swift */; };
 		14BE625F228527ED007FBE77 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BE625E228527ED007FBE77 /* UIButton+Extensions.swift */; };
 		14E018A3228907D900DB50B6 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E018A2228907D900DB50B6 /* BaseCollectionViewController.swift */; };
+		14E018A622891A0300DB50B6 /* NewFeedScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E018A522891A0300DB50B6 /* NewFeedScreenViewController.swift */; };
+		14E018A922891A3800DB50B6 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E018A822891A3800DB50B6 /* CollectionViewDataSource.swift */; };
+		14E018AB22891A4100DB50B6 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E018AA22891A4100DB50B6 /* BaseCollectionViewCell.swift */; };
+		14E018AD22891A4800DB50B6 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E018AC22891A4800DB50B6 /* CollectionViewCell.swift */; };
+		14E018AF22891EC300DB50B6 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E018AE22891EC300DB50B6 /* CGSize+Extensions.swift */; };
 		22C920100F05E7C64B1D3119 /* Pods_Instagram_CloneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D178054E3A39ABF83E444A72 /* Pods_Instagram_CloneTests.framework */; };
 		BDD7184E248934049230AC64 /* Pods_Instagram_CloneUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF2FB396BBA7BAE7D4B5F775 /* Pods_Instagram_CloneUITests.framework */; };
 		E60E68AEA791ECD998BBDD5D /* Pods_Instagram_Clone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 998A7F785396E50907A74FB7 /* Pods_Instagram_Clone.framework */; };
@@ -121,6 +126,11 @@
 		14BE625C22852216007FBE77 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		14BE625E228527ED007FBE77 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		14E018A2228907D900DB50B6 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
+		14E018A522891A0300DB50B6 /* NewFeedScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeedScreenViewController.swift; sourceTree = "<group>"; };
+		14E018A822891A3800DB50B6 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
+		14E018AA22891A4100DB50B6 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		14E018AC22891A4800DB50B6 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		14E018AE22891EC300DB50B6 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		1E543D0C5A54A7F0FEBD87AB /* Pods-Instagram CloneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram CloneTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Instagram CloneTests/Pods-Instagram CloneTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5FDB21AB0E6D8C36F240696D /* Pods-Instagram CloneUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram CloneUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Instagram CloneUITests/Pods-Instagram CloneUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7E66529142AAE7FDD7589FDE /* Pods-Instagram CloneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram CloneUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Instagram CloneUITests/Pods-Instagram CloneUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -268,6 +278,7 @@
 		14937BA122730C0500AD00F8 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				14E018A722891A1F00DB50B6 /* CollectionViewController */,
 				14937BA222730C1600AD00F8 /* String+Extension.swift */,
 				14937BA422730EBB00AD00F8 /* UIColor+Extension.swift */,
 				14937BA722731A3900AD00F8 /* Spacing.swift */,
@@ -280,7 +291,7 @@
 				14BE625C22852216007FBE77 /* UIImageView+Extensions.swift */,
 				14BE625E228527ED007FBE77 /* UIButton+Extensions.swift */,
 				14029A6B22857089009367F6 /* UILabel+Extensions.swift */,
-				14E018A2228907D900DB50B6 /* BaseCollectionViewController.swift */,
+				14E018AE22891EC300DB50B6 /* CGSize+Extensions.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -296,6 +307,7 @@
 		14A58EBA227FFDB500183A98 /* FeedScreen */ = {
 			isa = PBXGroup;
 			children = (
+				14E018A4228919E500DB50B6 /* FeedRemade */,
 				141C4C4C2282DD9900C3DB0C /* Post */,
 				143873BE22803ABB000B14F7 /* Story */,
 				14A58EC7227FFF5C00183A98 /* FeedScreenViewController.swift */,
@@ -333,6 +345,25 @@
 				14A58EBF227FFF2D00183A98 /* NotificationScreenViewController.swift */,
 			);
 			path = NotificationScreen;
+			sourceTree = "<group>";
+		};
+		14E018A4228919E500DB50B6 /* FeedRemade */ = {
+			isa = PBXGroup;
+			children = (
+				14E018A522891A0300DB50B6 /* NewFeedScreenViewController.swift */,
+			);
+			path = FeedRemade;
+			sourceTree = "<group>";
+		};
+		14E018A722891A1F00DB50B6 /* CollectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				14E018A2228907D900DB50B6 /* BaseCollectionViewController.swift */,
+				14E018A822891A3800DB50B6 /* CollectionViewDataSource.swift */,
+				14E018AA22891A4100DB50B6 /* BaseCollectionViewCell.swift */,
+				14E018AC22891A4800DB50B6 /* CollectionViewCell.swift */,
+			);
+			path = CollectionViewController;
 			sourceTree = "<group>";
 		};
 		2601E53F7940060CEAEE5591 /* Pods */ = {
@@ -571,6 +602,7 @@
 				14A58ECA22800F4C00183A98 /* PostViewController.swift in Sources */,
 				14981BE0227FD3EB0024BCEB /* BaseViewController.swift in Sources */,
 				14937BA822731A3900AD00F8 /* Spacing.swift in Sources */,
+				14E018AB22891A4100DB50B6 /* BaseCollectionViewCell.swift in Sources */,
 				141C4C582282DEB200C3DB0C /* PostInteractionView.swift in Sources */,
 				14A58ECC22800F5D00183A98 /* StoryViewController.swift in Sources */,
 				14BE625B2285115A007FBE77 /* UIView+Extensions.swift in Sources */,
@@ -583,6 +615,7 @@
 				14277E0A227C26E300FF362C /* UseCase.swift in Sources */,
 				14A58EC2227FFF3800183A98 /* ProfileScreenViewController.swift in Sources */,
 				1429922A2272F85500BC80DA /* LoginScreenViewController.swift in Sources */,
+				14E018AF22891EC300DB50B6 /* CGSize+Extensions.swift in Sources */,
 				14BE625D22852216007FBE77 /* UIImageView+Extensions.swift in Sources */,
 				14A58EC8227FFF5C00183A98 /* FeedScreenViewController.swift in Sources */,
 				143873B922803A78000B14F7 /* Story.swift in Sources */,
@@ -593,6 +626,7 @@
 				14277E0E227C283100FF362C /* LoginResponse.swift in Sources */,
 				14A58EC6227FFF4C00183A98 /* SearchScreenViewController.swift in Sources */,
 				141C4C502282DE5D00C3DB0C /* Post.swift in Sources */,
+				14E018A622891A0300DB50B6 /* NewFeedScreenViewController.swift in Sources */,
 				141FCF51228019BA00078ED3 /* GenericCollectionView.swift in Sources */,
 				14A58EC0227FFF2D00183A98 /* NotificationScreenViewController.swift in Sources */,
 				1429922C2272F8EA00BC80DA /* LoginScreenView.swift in Sources */,
@@ -601,7 +635,9 @@
 				141C4C562282DE9F00C3DB0C /* PostContentView.swift in Sources */,
 				14937BA322730C1600AD00F8 /* String+Extension.swift in Sources */,
 				141C4C522282DE7E00C3DB0C /* FetchPostsUseCase.swift in Sources */,
+				14E018A922891A3800DB50B6 /* CollectionViewDataSource.swift in Sources */,
 				142991FA2272F79F00BC80DA /* AppDelegate.swift in Sources */,
+				14E018AD22891A4800DB50B6 /* CollectionViewCell.swift in Sources */,
 				14277E0C227C273E00FF362C /* LoginUseCase.swift in Sources */,
 				14277E10227C289500FF362C /* User.swift in Sources */,
 				14BE625F228527ED007FBE77 /* UIButton+Extensions.swift in Sources */,
