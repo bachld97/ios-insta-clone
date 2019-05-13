@@ -7,6 +7,16 @@ open class CollectionViewDataSource: NSObject {
     public init(objects: [Any]? = nil) {
         self.objects = objects
     }
+
+    open func firstIndex(predicate: (Any) -> Bool) -> Int? {
+        for (index, element) in (objects ?? []).enumerated() {
+            if predicate(element) {
+                return index
+            }
+        }
+        
+        return nil
+    }
     
     open func numberOfSections() -> Int {
         return 1

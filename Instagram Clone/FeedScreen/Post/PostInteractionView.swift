@@ -4,24 +4,51 @@ class PostInteractionView: UIView {
     
     private lazy var likeCountLabel: UILabel = {
         let l = UILabel()
-        l.font = .boldSystemFont(ofSize: 13)
+        l.font = PostInteractionView.likeCountFont
         return l
     }()
     
     private lazy var captionLabel: UILabel = {
         let l = UILabel()
-        l.font = .systemFont(ofSize: 12)
+        l.font = PostInteractionView.captionFont
         l.numberOfLines = 2
         return l
     }()
     
     private lazy var timestampLabel: UILabel = {
        let l = UILabel()
-        l.font = .systemFont(ofSize: 12)
+        l.font = PostInteractionView.timestampFont
         l.textColor = .lightGray
         return l
     }()
 
+    static let textHorizontalPadding: CGFloat = 16
+    
+    static let likeCountFont = UIFont.systemFont(ofSize: 13)
+    static let captionFont = UIFont.systemFont(ofSize: 12)
+    static let captionBoldFont = UIFont.boldSystemFont(ofSize: 12)
+    static let timestampFont = UIFont.systemFont(ofSize: 12)
+
+    
+    static func heightFor(_ item: PostItem, cellWidth: CGFloat) -> CGFloat {
+        let fixedPortion: CGFloat = 32
+        let width = cellWidth - 2 * PostInteractionView.textHorizontalPadding
+        
+        let captionHeight = item.post.creator.name.toBold(
+            withNonBold: item.post.content.caption,
+            boldFont: PostInteractionView.captionBoldFont,
+            nonBoldFont: PostInteractionView.captionFont
+        ).heightToDisplay(
+            fixedWidth: width
+        )
+        
+        let timeHeight = item.timeAgoText.heightToDisplay(
+            fixedWidth: width,
+            font:  PostInteractionView.timestampFont
+        )
+        
+        return fixedPortion + captionHeight + timeHeight
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,12 +58,14 @@ class PostInteractionView: UIView {
     }
     
     private func setupConstraints() {
+        let pad = PostInteractionView.textHorizontalPadding
+        
         likeCountLabel.anchor(
             top: topAnchor,
             leading: leadingAnchor,
             bottom: nil,
             trailing: trailingAnchor,
-            padding: .init(top: 0, left: 16, bottom: 0, right: 0),
+            padding: .init(top: 0, left: pad, bottom: 0, right: pad),
             size: .init(width: 0, height: 12)
         )
         
@@ -45,7 +74,7 @@ class PostInteractionView: UIView {
             leading: leadingAnchor,
             bottom: nil,
             trailing: trailingAnchor,
-            padding: .init(top: 4, left: 16, bottom: 0, right: 0)
+            padding: .init(top: 4, left: pad, bottom: 0, right: pad)
         )
         
         timestampLabel.anchor(
@@ -53,7 +82,7 @@ class PostInteractionView: UIView {
             leading: leadingAnchor,
             bottom: nil,
             trailing: trailingAnchor,
-            padding: .init(top: 8, left: 16, bottom: 0, right: 0)
+            padding: .init(top: 8, left: pad, bottom: 0, right: pad)
         )
     }
     
@@ -61,12 +90,15 @@ class PostInteractionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with post: Post) {
+    func configure(with postItem: PostItem) {
+        let post = postItem.post
         captionLabel.textFrom(
-            bold: "\(post.creator.name)",
-            nonBold: "\(post.content.caption)"
+            bold: post.creator.name,
+            nonBold: post.content.caption,
+            boldFont: PostInteractionView.captionBoldFont,
+            nonBoldFont: PostInteractionView.captionFont
         )
-        likeCountLabel.text = "\(post.content.likeCount) likes"
-        timestampLabel.text = "10 years ago"
+        likeCountLabel.text = postItem.likeText
+        timestampLabel.text = postItem.timeAgoText
     }
 }

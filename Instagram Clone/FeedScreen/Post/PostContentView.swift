@@ -2,10 +2,17 @@ import UIKit
 
 class PostContentView: UIView {
 
+    weak var likeUnlikeDelegate: PostLikeUnlikeDelegate?
+    weak var navigateCommentDelegate: PostNavigateCommentDelegate?
+    weak var navigateShareDelegate: PostNavigateShareDelegate?
+    
+    var rebindClosure: (() -> ())?
+    
     private let likedImage = UIImage.original(named: "heart_filled")
     private let notLikedImage = UIImage.original(named: "heart")
     
     private var likedByMe: Bool = false
+    private var post: Post!
     
     static let buttonSize = CGSize(width: 36, height: 36)
     static let buttonPadding = UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 0)
@@ -75,35 +82,62 @@ class PostContentView: UIView {
         overlayHeartImageView.centerInSuperview(size: overlaySize)
     }
     
-    @objc private func imageDoubleTap() {
-        contentImageView.isUserInteractionEnabled = false
-        likedByMe = true
-        likeButton.change(toImage: likedImage, animated: true)
+    private func sendLike() {
+        if !post.content.likedByMe {
+            likeUnlikeDelegate?.postLiked(post.postId)
+        }
         
+        post.content.likedByMe = true
+        likeButton.change(toImage: likedImage, animated: true)
+        rebindClosure?()
+    }
+    
+    private func sendUnlike() {
+        if post.content.likedByMe {
+            likeUnlikeDelegate?.postUnliked(post.postId)
+        }
+        
+        post.content.likedByMe = false
+        likeButton.change(toImage: notLikedImage, animated: true)
+        rebindClosure?()
+    }
+    
+    @objc private func imageDoubleTap() {
+        sendLike()
+        contentImageView.isUserInteractionEnabled = false
         setupOverlayHeart()
         animateOverlayHeart()
     }
     
     @objc private func likeOnClick() {
-        likedByMe = !likedByMe
-        if likedByMe {
-            likeButton.change(toImage: likedImage, animated: true)
+        if post.content.likedByMe {
+            sendUnlike()
         } else {
-            likeButton.change(toImage: notLikedImage, animated: true)
+            sendLike()
         }
     }
     
     private lazy var commentButton: UIButton = {
         let button = UIButton()
         button.setImage(.original(named: "comment"), for: .normal)
+        button.addTarget(self, action: #selector(commentOnClick), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func commentOnClick() {
+        navigateCommentDelegate?.navigateComment(post.postId)
+    }
     
     private lazy var shareButton: UIButton = {
         let button = UIButton()
         button.setImage(.original(named: "forward"), for: .normal)
+        button.addTarget(self, action: #selector(shareOnClick), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func shareOnClick() {
+        navigateShareDelegate?.navigateShare(post.postId)
+    }
 
     fileprivate func setupConstraints() {
         contentImageView.anchor(
@@ -140,7 +174,6 @@ class PostContentView: UIView {
     }
     
     override init(frame: CGRect) {
-        likedByMe = false
         super.init(frame: frame)
         [contentImageView, likeButton, commentButton, shareButton].forEach {
             addSubview($0)
@@ -154,7 +187,7 @@ class PostContentView: UIView {
     }
     
     func configure(with post: Post) {
-        likedByMe = post.content.likedByMe
+        self.post = post
         if post.content.likedByMe {
             likeButton.change(toImage: likedImage, animated: false)
         } else {

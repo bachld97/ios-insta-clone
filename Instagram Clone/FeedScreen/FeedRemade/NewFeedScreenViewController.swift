@@ -3,11 +3,16 @@ import UIKit
 class NewFeedScreenViewController: BaseCollectionViewController {
     
     private let fetchPosts: FetchPostsUseCase
+    private let fetchStories: FetchStoriesUseCase
+    
     private let user: User
     
-    init(viewingAs user: User, fetchPosts: FetchPostsUseCase = .init()) {
+    init(viewingAs user: User,
+         fetchPosts: FetchPostsUseCase = .init(),
+         fetchStories: FetchStoriesUseCase = .init()) {
         self.user = user
         self.fetchPosts = fetchPosts
+        self.fetchStories = fetchStories
         super.init()
     }
     
@@ -18,6 +23,7 @@ class NewFeedScreenViewController: BaseCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchPosts.execute(user, completion: postsFetched(_:))
+        fetchStories.execute(user, completion: storiesFetched(_:))
     }
     
     override func handleRefresh() {
@@ -28,102 +34,69 @@ class NewFeedScreenViewController: BaseCollectionViewController {
         self.dataSource = FeedPostDataSource(posts: posts.map { return PostItem($0) })
     }
     
+    private func storiesFetched(_ stories: [Story]) {
+        
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         var h = PostCollectionViewCell.fixedHeight
+        let w = view.frame.width
         if let item = dataSource?.item(at: indexPath) as? PostItem {
             h += view.frame.width * item.post.aspectRatio
-            h += PostCollectionViewCell.heightForCaption(
-                item.post.content.caption, creator: item.post.creator
-            )
-            return .width(view.frame.width, height: h)
+            h += PostCollectionViewCell.heightFor(item, cellWidth: w)
+            return .width(w, height: h)
         }
         
-        return .width(view.frame.width, height: view.frame.width + h)
+        return .width(w, height: w + h)
+    }
+    
+    override func viewController() -> BaseCollectionViewController {
+        return self
     }
 }
 
-class PostItem {
-    private var isTextExpanded = false
-    private (set) var post: Post
+extension NewFeedScreenViewController: PostLikeUnlikeDelegate, PostNavigateCommentDelegate, PostNavigateShareDelegate {
+    func postLiked(_ postId: Post.IdType) {
+        print("Post liked: \(postId)")
+//        updateLocalLike(increaseLike: true, forPostWith: postId)
+    }
     
-    init(_ post: Post) {
-        self.post = post
+     func postUnliked(_ postId: Post.IdType) {
+        print("Post unliked: \(postId)")
+//        updateLocalLike(increaseLike: false, forPostWith: postId)
+    }
+    
+//    private func updateLocalLike(increaseLike: Bool, forPostWith postId: Post.IdType) {
+//        guard let index = dataSource?.firstIndex(predicate: { obj in
+//            guard let item = obj as? PostItem else {
+//                return false
+//            }
+//            return item.post.postId == postId
+//        }) else {
+//            return
+//        }
+//
+//    }
+    
+    func navigateComment(_ postId: Post.IdType) {
+        print("To comment: \(postId)")
+    }
+    
+    func navigateShare(_ postId: Post.IdType) {
+        print("To share: \(postId)")
     }
 }
 
-class FeedPostDataSource: CollectionViewDataSource {
-    init(posts: [PostItem]) {
-        super.init(objects: posts)
-    }
-    
-    override func cellClasses() -> [CollectionViewCell.Type] {
-        return [PostCollectionViewCell.self]
-    }
+protocol PostLikeUnlikeDelegate: class {
+    func postLiked(_ postId: Post.IdType)
+    func postUnliked(_ postId: Post.IdType)
 }
 
-class PostCollectionViewCell: CollectionViewCell {
-    
-    static var fixedHeight: CGFloat = headerHeight + contentExpansionHeight
-    static var headerHeight: CGFloat = 56
-    static var contentExpansionHeight: CGFloat = 56
-    
-    static func heightForCaption(_ caption: String, creator: User) -> CGFloat {
-        return 56
-    }
-    
-    private lazy var creatorView = PostCreatorView()
-    private lazy var postContentView = PostContentView()
-    private lazy var commentView = PostInteractionView()
-    
-    private var imageRatio: CGFloat = 1.0
-    
-    override func prepareUI() {
-        super.prepareUI()
-        addSubview(creatorView)
-        addSubview(postContentView)
-        addSubview(commentView)
-        setupConstraints()
-    }
-    
-    private func setupConstraints() {
-        creatorView.anchor(
-            top: topAnchor,
-            leading: leadingAnchor,
-            bottom: nil,
-            trailing: trailingAnchor,
-            padding: .zero,
-            size: .height(PostCollectionViewCell.headerHeight)
-        )
-        
-        postContentView.anchor(
-            top: creatorView.bottomAnchor,
-            leading: leadingAnchor,
-            bottom: nil,
-            trailing: trailingAnchor,
-            padding: .zero,
-            size: .height(
-                PostCollectionViewCell.contentExpansionHeight + frame.width * imageRatio
-            )
-        )
-        
-        commentView.anchor(
-            top: postContentView.bottomAnchor,
-            leading: leadingAnchor,
-            bottom: nil,
-            trailing: trailingAnchor
-        )
-    }
-    
-    override func configureCell(with item: Any?) {
-        guard let postItem = item as? PostItem else {
-            return
-        }
-        
-        let post = postItem.post
-        imageRatio = post.aspectRatio
-        creatorView.configure(with: post)
-        postContentView.configure(with: post)
-        commentView.configure(with: post)
-    }
+protocol PostNavigateCommentDelegate: class {
+    func navigateComment(_ postId: Post.IdType)
+}
+
+protocol PostNavigateShareDelegate: class {
+    func navigateShare(_ postId: Post.IdType)
 }

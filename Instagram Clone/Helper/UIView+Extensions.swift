@@ -117,4 +117,12 @@ extension UIView {
             heightAnchor.constraint(equalToConstant: size.height).isActive = true
         }
     }
+    
+    func visible() {
+        isHidden = false
+    }
+    
+    func invisible() {
+        isHidden = true
+    }
 }

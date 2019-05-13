@@ -7,6 +7,8 @@ open class CollectionViewCell: UICollectionViewCell {
         }
     }
     
+    public weak var viewController: BaseCollectionViewController?
+    
     open var lineDivider: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.from(r: 0, g: 0, b: 0, a: 0.5)

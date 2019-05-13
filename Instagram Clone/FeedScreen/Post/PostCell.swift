@@ -25,7 +25,7 @@ class PostCell: UICollectionViewCell, ConfigurableCell {
         
         creatorView.configure(with: item)
         postContentView.configure(with: item)
-        commentView.configure(with: item)
+//        commentView.configure(with: item)
     }
     
     override var frame: CGRect {
