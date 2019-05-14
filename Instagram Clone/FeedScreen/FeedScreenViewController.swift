@@ -1,45 +1,96 @@
 import UIKit
 
-class FeedScreenViewController: BaseViewController {
-
-    private let loggedInUser: User
+class FeedScreenViewController: BaseCollectionViewController {
     
+    private let fetchPosts: FetchPostsUseCase
+    private let fetchStories: FetchStoriesUseCase
     
-    init(of user: User) {
-        loggedInUser = user
-        super.init(nibName: nil, bundle: nil)
+    private let user: User
+    
+    private let feedDataSource = FeedPostDataSource()
+    
+    init(viewingAs user: User,
+         fetchPosts: FetchPostsUseCase = .init(),
+         fetchStories: FetchStoriesUseCase = .init()) {
+        self.user = user
+        self.fetchPosts = fetchPosts
+        self.fetchStories = fetchStories
+        super.init()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var storyViewController = StoryViewController(viewingAs: loggedInUser)
-    private lazy var postViewController = PostViewController(viewingAs: loggedInUser)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationItem.title = "Instagram"
-        
-        addSubViewController(storyViewController)
-        addSubViewController(postViewController)
+        fetchPosts.execute(user, completion: postsFetched(_:))
+        fetchStories.execute(user, completion: storiesFetched(_:))
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        storyViewController.view.frame = CGRect(
-            x: 0,
-            y: 0,
-            width: view.frame.width - insets.left - insets.right,
-            height: storyViewController.collectiveHeight
-        )
-        
-        postViewController.view.frame = CGRect(
-            x: 0,
-            y: storyViewController.view.frame.maxY,
-            width: view.frame.width - insets.left - insets.right,
-            height: view.frame.height - storyViewController.view.frame.height
-        )
+    override func handleRefresh() {
+        fetchPosts.execute(user, completion: postsFetched(_:))
     }
+    
+    private func postsFetched(_ posts: [Post]) {
+        feedDataSource.posts = posts.map {
+            return PostItem($0)
+        }
+        self.dataSource = feedDataSource
+    }
+    
+    private func storiesFetched(_ stories: [Story]) {
+        feedDataSource.stories = stories.map {
+            return StoryItem($0)
+        }
+        self.dataSource = feedDataSource
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if indexPath.item == 0 {
+            return .width(view.frame.width, height: 80)
+        }
+        
+        var h = PostCollectionViewCell.fixedHeight
+        let w = view.frame.width
+        if let item = dataSource?.item(at: indexPath) as? PostItem {
+            h += view.frame.width * item.post.aspectRatio
+            h += PostCollectionViewCell.heightFor(item, cellWidth: w)
+            return .width(w, height: h)
+        }
+        
+        return .width(w, height: w + h)
+    }
+}
+
+extension FeedScreenViewController: PostLikeUnlikeDelegate, PostNavigateCommentDelegate, PostNavigateShareDelegate {
+    func postLiked(_ postId: Post.IdType) {
+        print("Post liked: \(postId)")
+    }
+    
+     func postUnliked(_ postId: Post.IdType) {
+        print("Post unliked: \(postId)")
+    }
+    
+    func navigateComment(_ postId: Post.IdType) {
+        print("To comment: \(postId)")
+    }
+    
+    func navigateShare(_ postId: Post.IdType) {
+        print("To share: \(postId)")
+    }
+}
+
+protocol PostLikeUnlikeDelegate: class {
+    func postLiked(_ postId: Post.IdType)
+    func postUnliked(_ postId: Post.IdType)
+}
+
+protocol PostNavigateCommentDelegate: class {
+    func navigateComment(_ postId: Post.IdType)
+}
+
+protocol PostNavigateShareDelegate: class {
+    func navigateShare(_ postId: Post.IdType)
 }

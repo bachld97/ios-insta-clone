@@ -58,7 +58,7 @@ open class BaseCollectionViewController: UICollectionViewController, UICollectio
     }
     
     override open func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return dataSource?.numberOfSections() ?? 0
+        return dataSource?.numberOfSections() ?? 1
     }
     
     override open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
