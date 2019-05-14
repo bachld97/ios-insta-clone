@@ -11,7 +11,8 @@ class PostInteractionView: UIView {
     private lazy var captionLabel: UILabel = {
         let l = UILabel()
         l.font = PostInteractionView.captionFont
-        l.numberOfLines = 2
+        l.numberOfLines = 0
+        l.lineBreakMode = .byWordWrapping
         return l
     }()
     

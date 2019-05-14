@@ -10,7 +10,6 @@ class StoriesCollectionViewCell: CollectionViewCell {
     }
     
     override func configureCell(with item: Any?) {
-        super.configureCell(with: item)
         guard let stories = item as? [StoryItem] else {
             return
         }
