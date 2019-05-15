@@ -43,17 +43,23 @@ class PostInteractionView: UIView {
             fixedWidth: width
         )
         
+        let lineHeight = PostInteractionView.captionBoldFont.lineHeight
+        let numLines = captionHeight / lineHeight
+        
         let timeHeight = item.timeAgoText.heightToDisplay(
             fixedWidth: width,
             font:  PostInteractionView.timestampFont
         )
         
-        return fixedPortion + captionHeight + timeHeight
+        if numLines <= 2 || item.isTextExpanded {
+            return fixedPortion + timeHeight + captionHeight
+        } else {
+            return fixedPortion + timeHeight + lineHeight * 2
+        }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         [likeCountLabel, captionLabel, timestampLabel].forEach { addSubview($0) }
         setupConstraints()
     }
@@ -92,6 +98,13 @@ class PostInteractionView: UIView {
     }
     
     func configure(with postItem: PostItem) {
+        
+        if postItem.isTextExpanded {
+            captionLabel.numberOfLines = 0
+        } else {
+            captionLabel.numberOfLines = 2
+        }
+        
         let post = postItem.post
         captionLabel.textFrom(
             bold: post.creator.name,
@@ -99,7 +112,16 @@ class PostInteractionView: UIView {
             boldFont: PostInteractionView.captionBoldFont,
             nonBoldFont: PostInteractionView.captionFont
         )
+        
+        if captionLabel.isTextTruncated() {
+            let color = UIColor.from(r: 0.7, g: 0.7, b: 0.7)
+            let f = PostInteractionView.captionFont
+            captionLabel.addTrailing(with: "… ", moreText: "more",
+                                     moreTextFont: f, moreTextColor: color)
+        }
+        
         likeCountLabel.text = postItem.likeText
         timestampLabel.text = postItem.timeAgoText
+        
     }
 }

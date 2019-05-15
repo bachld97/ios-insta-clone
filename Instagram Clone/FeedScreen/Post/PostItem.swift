@@ -1,5 +1,9 @@
+import UIKit
+
 class PostItem {
-    private var isTextExpanded = false
+    var isTextExpanded = false
+    var cachedHeightForCell: CGFloat = -1
+    
     let post: Post
     
     init(_ post: Post) {

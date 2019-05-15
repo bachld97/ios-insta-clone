@@ -52,15 +52,19 @@ class FeedScreenViewController: BaseCollectionViewController {
             return .width(view.frame.width, height: 80)
         }
         
-        var h = PostCollectionViewCell.fixedHeight
+        let item = dataSource?.item(at: indexPath) as? PostItem
+        let cachedHeight = item?.cachedHeightForCell ?? -1
         let w = view.frame.width
-        if let item = dataSource?.item(at: indexPath) as? PostItem {
-            h += view.frame.width * item.post.aspectRatio
-            h += PostCollectionViewCell.heightFor(item, cellWidth: w)
-            return .width(w, height: h)
+
+        #warning("This cached height does not get called in this implementation.")
+        if cachedHeight > 0 {
+            print("Using cached height: \(cachedHeight)")
+            return .width(w, height: cachedHeight)
         }
         
-        return .width(w, height: w + h)
+        let h = PostCollectionViewCell.heightFor(item, cellWidth: w)
+        item?.cachedHeightForCell = h
+        return .width(w, height: h)
     }
 }
 

@@ -14,7 +14,7 @@ class FetchPostsUseCase: UseCase {
     private func posts() -> [Post] {
         let u1 = User(name: "bachld")
         let content1 = Post.Content(
-            caption: "Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI.",
+            caption: "Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI. Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI. Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI. A little more.",
             imageUrl: "https://via.placeholder.com/480/",
             likeCount: 14)
         

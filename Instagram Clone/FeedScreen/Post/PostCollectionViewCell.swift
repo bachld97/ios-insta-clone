@@ -2,12 +2,18 @@ import UIKit
 
 class PostCollectionViewCell: CollectionViewCell {
     
-    static var fixedHeight: CGFloat = headerHeight + contentExpansionHeight
-    static var headerHeight: CGFloat = 56
-    static var contentExpansionHeight: CGFloat = 56
+    private static var fixedHeight: CGFloat = headerHeight + contentExpansionHeight
+    private static var headerHeight: CGFloat = 56
+    private static var contentExpansionHeight: CGFloat = 56
     
-    static func heightFor(_ item: PostItem, cellWidth: CGFloat) -> CGFloat {
-        return PostInteractionView.heightFor(item, cellWidth: cellWidth)
+    static func heightFor(_ item: PostItem?, cellWidth: CGFloat) -> CGFloat {
+        guard let item = item else {
+            return fixedHeight
+        }
+
+        let imageHeight = cellWidth * item.post.aspectRatio
+        let interactionHeight = PostInteractionView.heightFor(item, cellWidth: cellWidth)
+        return imageHeight + interactionHeight + fixedHeight
     }
     
     private lazy var creatorView = PostCreatorView()
