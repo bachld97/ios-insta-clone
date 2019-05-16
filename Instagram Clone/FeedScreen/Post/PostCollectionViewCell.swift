@@ -64,7 +64,7 @@ class PostCollectionViewCell: CollectionViewCell {
         commentView.anchor(
             top: postContentView.bottomAnchor,
             leading: leadingAnchor,
-            bottom: nil,
+            bottom: bottomAnchor,
             trailing: trailingAnchor
         )
     }
@@ -82,6 +82,10 @@ class PostCollectionViewCell: CollectionViewCell {
             postContentView.navigateCommentDelegate = delegate
         }
         
+        if let delegate = self.viewController as? PostExtendCaptionDelegate {
+            commentView.delegate = delegate
+        }
+        
         postContentView.rebindClosure = rebind
     }
     
@@ -95,7 +99,7 @@ class PostCollectionViewCell: CollectionViewCell {
         imageRatio = post.aspectRatio
         creatorView.configure(with: post)
         postContentView.configure(with: post)
-        commentView.configure(with: postItem)
+        commentView.configure(with: postItem, indexPath: self.indexPath!)
     }
     
     private func rebind() {

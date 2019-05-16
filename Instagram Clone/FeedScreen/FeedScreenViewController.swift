@@ -53,22 +53,14 @@ class FeedScreenViewController: BaseCollectionViewController {
         }
         
         let item = dataSource?.item(at: indexPath) as? PostItem
-        let cachedHeight = item?.cachedHeightForCell ?? -1
         let w = view.frame.width
-
-        #warning("This cached height does not get called in this implementation.")
-        if cachedHeight > 0 {
-            print("Using cached height: \(cachedHeight)")
-            return .width(w, height: cachedHeight)
-        }
         
         let h = PostCollectionViewCell.heightFor(item, cellWidth: w)
-        item?.cachedHeightForCell = h
         return .width(w, height: h)
     }
 }
 
-extension FeedScreenViewController: PostLikeUnlikeDelegate, PostNavigateCommentDelegate, PostNavigateShareDelegate {
+extension FeedScreenViewController: PostLikeUnlikeDelegate, PostNavigateCommentDelegate, PostNavigateShareDelegate, PostExtendCaptionDelegate {
     func postLiked(_ postId: Post.IdType) {
         print("Post liked: \(postId)")
     }
@@ -83,6 +75,10 @@ extension FeedScreenViewController: PostLikeUnlikeDelegate, PostNavigateCommentD
     
     func navigateShare(_ postId: Post.IdType) {
         print("To share: \(postId)")
+    }
+    
+    func extendCaptionForCell(at indexPath: IndexPath) {
+        collectionView?.reloadItems(at: [indexPath])
     }
 }
 

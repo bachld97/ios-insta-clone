@@ -7,6 +7,10 @@ open class CollectionViewCell: UICollectionViewCell {
         }
     }
     
+    public var indexPath: IndexPath? {
+        didSet { }
+    }
+    
     public weak var viewController: BaseCollectionViewController?
     
     open var lineDivider: UIView = {

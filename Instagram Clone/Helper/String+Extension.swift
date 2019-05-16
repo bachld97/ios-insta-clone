@@ -33,7 +33,7 @@ extension String {
     func heightToDisplay(
         fixedWidth width: CGFloat, font: UIFont) -> CGFloat {
         // without subtracting the width it is not accurate, dont know why
-        let size = CGSize(width: width - 4, height: CGFloat.greatestFiniteMagnitude)
+        let size = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         let attributes = [NSAttributedString.Key.font: font]
         let estimatedFrame = NSString(
             string: self

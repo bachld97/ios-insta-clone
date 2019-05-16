@@ -67,7 +67,7 @@ class SearchResultViewController: BaseCollectionViewController, SearchResultColl
         }
         
         let font = SearchResultCollectionViewCell.labelFont
-        let h = item.searchResult.content.heightToDisplay(fixedWidth: w, font: font) + 8 // padding top bot
+        let h = item.searchResult.content.heightToDisplay(fixedWidth: w, font: font) + 16 // padding top bot
         item.cachedHeight = h
         return h
     }
@@ -111,26 +111,40 @@ class FetchSearchResultUseCase: UseCase {
     func execute(
         _ request: (User, String), completion: @escaping ([SearchResult]) -> Void) {
      
-        let t1 = "1. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby."
-        let t2 = "2. Hello world, I am a short (kind of) text."
-        let t3 = "3. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby."
-        let t4 = "4. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby."
-        let t5 = "5. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby."
-
-        let sr1 = SearchResult(content: t1)
-        let sr2 = SearchResult(content: t2)
-        let sr3 = SearchResult(content: t3)
-        let sr4 = SearchResult(content: t4)
-        let sr5 = SearchResult(content: t5)
+//        let t1 = "1. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby."
+//        let t2 = "2. Hello world, I am a short (kind of) text."
+//        let t3 = "3. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby."
+//        let t4 = "4. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby."
+//        let t5 = "5. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby. Kinda long text but it is okay. I think this text is longer than the second text already. No need to have more text. Bye now baby."
+//
+//        let sr1 = SearchResult(content: t1)
+//        let sr2 = SearchResult(content: t2)
+//        let sr3 = SearchResult(content: t3)
+//        let sr4 = SearchResult(content: t4)
+//        let sr5 = SearchResult(content: t5)
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            completion([
+//               sr1, sr2, sr3, sr4, sr5,
+//               sr1, sr2, sr3, sr4, sr5,
+//               sr1, sr2, sr3, sr4, sr5,
+//               sr1, sr2, sr3, sr4, sr5,
+//               sr1, sr2, sr3, sr4, sr5
+//            ])
+//        }
+        
+        var items = [String]()
+        for _ in 1...100 {
+            let random = Int.random(in: 0...99)
+            var s = ""
+            for j in 0...random {
+                s += "\(j) "
+            }
+            items.append(s)
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            completion([
-               sr1, sr2, sr3, sr4, sr5,
-               sr1, sr2, sr3, sr4, sr5,
-               sr1, sr2, sr3, sr4, sr5,
-               sr1, sr2, sr3, sr4, sr5,
-               sr1, sr2, sr3, sr4, sr5
-            ])
+            completion(items.map { SearchResult(content: $0) })
         }
     }
     
@@ -219,10 +233,12 @@ class SearchResultCollectionLayout: UICollectionViewLayout {
         for group in 0..<numberOfItems / 5 {
             let ip1 = IndexPath(row: group * 5 + 0, section: 0)
             let ip2 = IndexPath(row: group * 5 + 1, section: 0)
-            let h12 = max(delegate.heightForItem(at: ip1, cellWidth: largeWidth),
-                          delegate.heightForItem(at: ip2, cellWidth: smallWidth))
-            let f1 = CGRect(x: 4, y: yOffset + 4, width: largeWidth, height: h12)
-            let f2 = CGRect(x: largeWidth + 8, y: yOffset + 4, width: smallWidth, height: h12)
+            
+            let h1 = delegate.heightForItem(at: ip1, cellWidth: largeWidth)
+            let h2 = delegate.heightForItem(at: ip2, cellWidth: smallWidth)
+            let h12 = max(h1, h2)
+            let f1 = CGRect(x: 4, y: yOffset + 4, width: largeWidth, height: h1)
+            let f2 = CGRect(x: largeWidth + 8, y: yOffset + 4, width: smallWidth, height: h2)
             let at1 = UICollectionViewLayoutAttributes(forCellWith: ip1)
             at1.frame = f1
             let at2 = UICollectionViewLayoutAttributes(forCellWith: ip2)
@@ -236,12 +252,16 @@ class SearchResultCollectionLayout: UICollectionViewLayout {
             
             let h3 = delegate.heightForItem(at: ip3, cellWidth: smallWidth)
             let h4 = delegate.heightForItem(at: ip4, cellWidth: smallWidth)
-            let h345 = 4 + max(
-                h3 + h4, delegate.heightForItem(at: ip5, cellWidth: largeWidth)
+            let h5 = delegate.heightForItem(at: ip5, cellWidth: largeWidth)
+            let h345 = max(
+                h3 + h4 + 4, delegate.heightForItem(at: ip5, cellWidth: largeWidth)
             )
             let f3 = CGRect(x: 4, y: yOffset + 4, width: smallWidth, height: h3)
-            let f4 = CGRect(x: 4, y: yOffset + h3 + 8, width: smallWidth, height: h345 - h3 - 4)
-            let f5 = CGRect(x: smallWidth + 8, y: yOffset + 4, width: largeWidth, height: h345)
+            
+            let f4 = CGRect(x: 4, y: yOffset + h3 + 8, width: smallWidth, height: h4)
+            
+            let f5 = CGRect(x: smallWidth + 8, y: yOffset + 4, width: largeWidth, height: h5)
+            
             let at3 = UICollectionViewLayoutAttributes(forCellWith: ip3)
             at3.frame = f3
             let at4 = UICollectionViewLayoutAttributes(forCellWith: ip4)

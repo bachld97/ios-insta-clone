@@ -96,6 +96,7 @@ open class BaseCollectionViewController: UICollectionViewController, UICollectio
             withReuseIdentifier: cellId, for: indexPath
         ) as! CollectionViewCell
         
+        cell.indexPath = indexPath
         cell.item = dataSource?.item(at: indexPath)
         cell.viewController = self
         return cell

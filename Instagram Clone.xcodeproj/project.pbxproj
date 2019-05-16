@@ -35,6 +35,7 @@
 		14376ACF228A9EE70010F3AD /* StoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14376ACE228A9EE70010F3AD /* StoryItem.swift */; };
 		143873B922803A78000B14F7 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143873B822803A78000B14F7 /* Story.swift */; };
 		143873BB22803A99000B14F7 /* FetchStoriesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143873BA22803A99000B14F7 /* FetchStoriesUseCase.swift */; };
+		1473227C228C18CB00588B80 /* UITapGestureRecognizer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1473227B228C18CB00588B80 /* UITapGestureRecognizer+Extensions.swift */; };
 		14937BA322730C1600AD00F8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14937BA222730C1600AD00F8 /* String+Extension.swift */; };
 		14937BA522730EBB00AD00F8 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14937BA422730EBB00AD00F8 /* UIColor+Extension.swift */; };
 		14937BA822731A3900AD00F8 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14937BA722731A3900AD00F8 /* Spacing.swift */; };
@@ -115,6 +116,7 @@
 		14376ACE228A9EE70010F3AD /* StoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryItem.swift; sourceTree = "<group>"; };
 		143873B822803A78000B14F7 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		143873BA22803A99000B14F7 /* FetchStoriesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStoriesUseCase.swift; sourceTree = "<group>"; };
+		1473227B228C18CB00588B80 /* UITapGestureRecognizer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITapGestureRecognizer+Extensions.swift"; sourceTree = "<group>"; };
 		14937BA222730C1600AD00F8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		14937BA422730EBB00AD00F8 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		14937BA722731A3900AD00F8 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				14029A6B22857089009367F6 /* UILabel+Extensions.swift */,
 				14E018AE22891EC300DB50B6 /* CGSize+Extensions.swift */,
 				14E018B0228951B800DB50B6 /* NSAttributtedString+Extensions.swift */,
+				1473227B228C18CB00588B80 /* UITapGestureRecognizer+Extensions.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				14937BA522730EBB00AD00F8 /* UIColor+Extension.swift in Sources */,
 				141C4C562282DE9F00C3DB0C /* PostContentView.swift in Sources */,
 				14937BA322730C1600AD00F8 /* String+Extension.swift in Sources */,
+				1473227C228C18CB00588B80 /* UITapGestureRecognizer+Extensions.swift in Sources */,
 				141C4C522282DE7E00C3DB0C /* FetchPostsUseCase.swift in Sources */,
 				14E018A922891A3800DB50B6 /* CollectionViewDataSource.swift in Sources */,
 				142991FA2272F79F00BC80DA /* AppDelegate.swift in Sources */,

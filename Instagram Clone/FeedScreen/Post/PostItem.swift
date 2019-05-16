@@ -2,7 +2,6 @@ import UIKit
 
 class PostItem {
     var isTextExpanded = false
-    var cachedHeightForCell: CGFloat = -1
     
     let post: Post
     

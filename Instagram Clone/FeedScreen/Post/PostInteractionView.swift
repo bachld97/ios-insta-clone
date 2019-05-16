@@ -1,26 +1,58 @@
 import UIKit
 
+protocol PostExtendCaptionDelegate: class {
+    func extendCaptionForCell(at indexPath: IndexPath)
+}
+
+
 class PostInteractionView: UIView {
     
+    weak var delegate: PostExtendCaptionDelegate?
+    private var indexPath: IndexPath!
+    
     private lazy var likeCountLabel: UILabel = {
-        let l = UILabel()
-        l.font = PostInteractionView.likeCountFont
-        return l
+        let label = UILabel()
+        label.font = PostInteractionView.likeCountFont
+        return label
     }()
     
     private lazy var captionLabel: UILabel = {
-        let l = UILabel()
-        l.font = PostInteractionView.captionFont
-        l.numberOfLines = 0
-        l.lineBreakMode = .byWordWrapping
-        return l
+        let label = UILabel()
+        label.font = PostInteractionView.captionFont
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        
+        let gesture = UITapGestureRecognizer(
+            target: self, action: #selector(captionOnTap)
+        )
+        gesture.numberOfTapsRequired = 1
+        gesture.numberOfTouchesRequired = 1
+        label.addGestureRecognizer(gesture)
+        label.isUserInteractionEnabled = true
+        
+        return label
     }()
+
+    @objc private func captionOnTap(tap: UITapGestureRecognizer) {
+//        guard let text = captionLabel.text else {
+//            return
+//        }
+        
+        let userRange = NSRange(location: 0, length: postItem.post.creator.name.count)
+        
+        if tap.didTapAttributedTextInLabel(label: captionLabel, inRange: userRange) {
+            print("To user page")
+        } else {
+            postItem.isTextExpanded = true
+            delegate?.extendCaptionForCell(at: self.indexPath)
+        }
+    }
     
     private lazy var timestampLabel: UILabel = {
-       let l = UILabel()
-        l.font = PostInteractionView.timestampFont
-        l.textColor = .lightGray
-        return l
+       let label = UILabel()
+        label.font = PostInteractionView.timestampFont
+        label.textColor = .lightGray
+        return label
     }()
 
     static let textHorizontalPadding: CGFloat = 16
@@ -30,6 +62,7 @@ class PostInteractionView: UIView {
     static let captionBoldFont = UIFont.boldSystemFont(ofSize: 12)
     static let timestampFont = UIFont.systemFont(ofSize: 12)
 
+    private var postItem: PostItem!
     
     static func heightFor(_ item: PostItem, cellWidth: CGFloat) -> CGFloat {
         let fixedPortion: CGFloat = 32
@@ -60,7 +93,7 @@ class PostInteractionView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        [likeCountLabel, captionLabel, timestampLabel].forEach { addSubview($0) }
+        [likeCountLabel, timestampLabel, captionLabel].forEach { addSubview($0) }
         setupConstraints()
     }
     
@@ -97,7 +130,9 @@ class PostInteractionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with postItem: PostItem) {
+    func configure(with postItem: PostItem, indexPath: IndexPath) {
+        self.indexPath = indexPath
+        self.postItem = postItem
         
         if postItem.isTextExpanded {
             captionLabel.numberOfLines = 0
@@ -113,15 +148,17 @@ class PostInteractionView: UIView {
             nonBoldFont: PostInteractionView.captionFont
         )
         
-        if captionLabel.isTextTruncated() {
+        if captionLabel.isTextTruncated() && !postItem.isTextExpanded {
             let color = UIColor.from(r: 0.7, g: 0.7, b: 0.7)
             let f = PostInteractionView.captionFont
-            captionLabel.addTrailing(with: "… ", moreText: "more",
-                                     moreTextFont: f, moreTextColor: color)
+            
+            captionLabel.appendSeeMore(
+                prefix: "… ", text: "more",
+                seeMoreFont: f, seeMoreColor: color
+            )
         }
         
         likeCountLabel.text = postItem.likeText
         timestampLabel.text = postItem.timeAgoText
-        
     }
 }

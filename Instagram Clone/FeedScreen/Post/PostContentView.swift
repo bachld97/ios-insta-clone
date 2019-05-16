@@ -178,7 +178,6 @@ class PostContentView: UIView {
         [contentImageView, likeButton, commentButton, shareButton].forEach {
             addSubview($0)
         }
-        
         setupConstraints()
     }
     
