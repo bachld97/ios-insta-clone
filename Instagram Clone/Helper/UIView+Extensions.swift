@@ -125,4 +125,10 @@ extension UIView {
     func invisible() {
         isHidden = true
     }
+    
+    func addViews(_ views: UIView...) {
+        views.forEach {
+            addSubview($0)
+        }
+    }
 }

@@ -99,7 +99,7 @@ class PostCollectionViewCell: CollectionViewCell {
         imageRatio = post.aspectRatio
         creatorView.configure(with: post)
         postContentView.configure(with: post)
-        commentView.configure(with: postItem, indexPath: self.indexPath!)
+        commentView.configure(with: postItem)
     }
     
     private func rebind() {

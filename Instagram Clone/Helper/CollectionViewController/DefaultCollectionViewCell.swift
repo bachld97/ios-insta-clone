@@ -1,8 +1,8 @@
 import Foundation
 import UIKit
 
-final class BaseCollectionViewCell: CollectionViewCell {
-    private lazy var label: UILabel = {
+open class DefaultCollectionViewCell: CollectionViewCell {
+    open lazy var label: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.backgroundColor = .white
@@ -10,7 +10,7 @@ final class BaseCollectionViewCell: CollectionViewCell {
         return label
     }()
     
-    override func prepareUI() {
+    override open func prepareUI() {
         super.prepareUI()
         addSubview(label)
         label.anchor(
@@ -21,7 +21,7 @@ final class BaseCollectionViewCell: CollectionViewCell {
         )
     }
     
-    override func configureCell(with item: Any?) {
+    override open func configureCell(with item: Any?) {
         label.text = String(describing: item)
     }
 }

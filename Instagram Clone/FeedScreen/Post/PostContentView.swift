@@ -193,7 +193,7 @@ class PostContentView: UIView {
             likeButton.change(toImage: notLikedImage, animated: false)
         }
         contentImageView.aspectRatio(widthToHeight: post.aspectRatio)
-        contentImageView.image(fromUrl: post.content.imageUrl)
+        contentImageView.image(fromUrl: post.content.images.first?.url ?? "")
         contentImageView.backgroundColor = .lightGray
     }
 }

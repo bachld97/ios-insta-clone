@@ -1,43 +1,30 @@
 import UIKit
 
 class FeedPostDataSource: CollectionViewDataSource {
-    var stories: [StoryItem] {
-        didSet {
-            updateSuperObjects()
-        }
-    }
+    var stories: [StoryItem]
     
     var posts: [PostItem] {
         didSet {
-            updateSuperObjects()
+            self.objects = posts
         }
-    }
-    
-    private func updateSuperObjects() {
-        var superObjects: [Any] = self.posts
-        superObjects.insert(stories, at: 0)
-        self.objects = superObjects
     }
     
     init(stories: [StoryItem] = [],
          posts: [PostItem] = []) {
         self.stories = stories
         self.posts = posts
-        
-        var superObjects: [Any] = self.posts
-        superObjects.insert(stories, at: 0)
-        super.init(objects: superObjects)
+        super.init(objects: posts)
     }
     
     override func cellClasses() -> [CollectionViewCell.Type] {
-        return [StoriesCollectionViewCell.self, PostCollectionViewCell.self]
+        return [PostCollectionViewCell2.self]
     }
     
-    override open func cellClass(at indexPath: IndexPath) -> CollectionViewCell.Type? {
-        if indexPath.item == 0 {
-            return StoriesCollectionViewCell.self
-        } else {
-            return PostCollectionViewCell.self
-        }
+    override open func headerClasses() -> [CollectionViewCell.Type] {
+        return [StoriesCollectionViewCell.self]
+    }
+    
+    override func itemForHeader(at indexPath: IndexPath) -> Any? {
+        return stories
     }
 }

@@ -47,16 +47,14 @@ class FeedScreenViewController: BaseCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        if indexPath.item == 0 {
-            return .width(view.frame.width, height: 80)
-        }
-        
         let item = dataSource?.item(at: indexPath) as? PostItem
         let w = view.frame.width
-        
         let h = PostCollectionViewCell.heightFor(item, cellWidth: w)
         return .width(w, height: h)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return .width(view.frame.width, height: 80)
     }
 }
 
@@ -77,8 +75,8 @@ extension FeedScreenViewController: PostLikeUnlikeDelegate, PostNavigateCommentD
         print("To share: \(postId)")
     }
     
-    func extendCaptionForCell(at indexPath: IndexPath) {
-        collectionView?.reloadItems(at: [indexPath])
+    func extendCaptionForCell() {
+        collectionView?.reloadData()
     }
 }
 

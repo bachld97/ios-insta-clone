@@ -21,15 +21,15 @@ class Post {
     
     class Content {
         let caption: String
-        let imageUrl: String
+        let images: [Image]
         let likeCount: Int
         var likedByMe: Bool = false
         
         init(caption: String,
-             imageUrl: String,
+             images: [Image],
              likeCount: Int) {
             self.caption = caption
-            self.imageUrl = imageUrl
+            self.images = images
             self.likeCount = likeCount
         }
     }

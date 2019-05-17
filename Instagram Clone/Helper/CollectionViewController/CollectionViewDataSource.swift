@@ -33,8 +33,32 @@ open class CollectionViewDataSource: NSObject {
         return nil
     }
     
+    open func headerClass(at indexPath: IndexPath) -> CollectionViewCell.Type? {
+        return nil
+    }
+    
+    open func footerClass(at indexPath: IndexPath) -> CollectionViewCell.Type? {
+        return nil
+    }
+    
     open func cellClasses() -> [CollectionViewCell.Type] {
         return []
+    }
+    
+    open func headerClasses() -> [CollectionViewCell.Type] {
+        return []
+    }
+    
+    open func footerClasses() -> [CollectionViewCell.Type] {
+        return []
+    }
+    
+    open func itemForHeader(at indexPath: IndexPath) -> Any? {
+        return nil
+    }
+    
+    open func itemForFooter(at indexPath: IndexPath) -> Any? {
+        return nil
     }
 }
 

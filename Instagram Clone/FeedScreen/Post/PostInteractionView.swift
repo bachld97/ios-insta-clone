@@ -1,14 +1,13 @@
 import UIKit
 
 protocol PostExtendCaptionDelegate: class {
-    func extendCaptionForCell(at indexPath: IndexPath)
+    func extendCaptionForCell()
 }
 
 
 class PostInteractionView: UIView {
     
     weak var delegate: PostExtendCaptionDelegate?
-    private var indexPath: IndexPath!
     
     private lazy var likeCountLabel: UILabel = {
         let label = UILabel()
@@ -44,7 +43,7 @@ class PostInteractionView: UIView {
             print("To user page")
         } else {
             postItem.isTextExpanded = true
-            delegate?.extendCaptionForCell(at: self.indexPath)
+            delegate?.extendCaptionForCell()
         }
     }
     
@@ -130,8 +129,7 @@ class PostInteractionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with postItem: PostItem, indexPath: IndexPath) {
-        self.indexPath = indexPath
+    func configure(with postItem: PostItem) {
         self.postItem = postItem
         
         if postItem.isTextExpanded {
