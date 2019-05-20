@@ -395,6 +395,7 @@ class PostCollectionViewCell: CollectionViewCell {
             return
         }
         
+        imageCarousel.imageSelectionChanged = imageIndexChanged(_:)
         bindCreator(item)
         bindContent(item)
         bindCaption(item)

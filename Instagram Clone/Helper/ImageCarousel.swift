@@ -2,7 +2,7 @@ import UIKit
 
 class ImageCarousel: UIView, UIScrollViewDelegate {
 
-    private var imageSelectionChanged: ((Int) -> Void)?
+    var imageSelectionChanged: ((Int) -> Void)?
     
     init(hideIndicator: Bool = false) {
         super.init(frame: .zero)
