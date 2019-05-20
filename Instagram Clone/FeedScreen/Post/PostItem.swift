@@ -1,6 +1,6 @@
 import UIKit
 
-struct PostItem {
+class PostItem {
     let isTextExpanded: Bool
     let selectedImage: Int
     var cachedExpandedHeight: CGFloat = -1

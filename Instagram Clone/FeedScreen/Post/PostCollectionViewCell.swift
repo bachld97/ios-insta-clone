@@ -11,10 +11,21 @@ class PostCollectionViewCell: CollectionViewCell {
         guard let item = item else {
             return fixedHeight
         }
+        if item.isTextExpanded && item.cachedExpandedHeight > 0 {
+            return item.cachedExpandedHeight
+        } else if !item.isTextExpanded && item.cachedCollapseHeight > 0 {
+            return item.cachedCollapseHeight
+        }
         
         let contentRowHeight = cellWidth * item.post.aspectRatio
         let captionRowHeight = heightForCaption(item, cellWidth)
-        return contentRowHeight + captionRowHeight + fixedHeight
+        let height = contentRowHeight + captionRowHeight + fixedHeight
+        if item.isTextExpanded {
+            item.cachedExpandedHeight = height
+        } else {
+            item.cachedCollapseHeight = height
+        }
+        return height
     }
     
     static private func heightForCaption(_ item: PostItem, _ cellWidth: CGFloat) -> CGFloat {
@@ -23,7 +34,7 @@ class PostCollectionViewCell: CollectionViewCell {
             boldFont: Styles.FeedPostCell.captionCreatorFont,
             nonBoldFont: Styles.FeedPostCell.captionFont
         ).heightToDisplay(
-                fixedWidth: cellWidth
+            fixedWidth: cellWidth
         )
         
         let lineHeight = Styles.FeedPostCell.captionCreatorFont.lineHeight

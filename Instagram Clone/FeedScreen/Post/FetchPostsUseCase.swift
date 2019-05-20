@@ -53,7 +53,7 @@ class FetchPostsUseCase: UseCase {
         let post2 = Post(id: 2, creator: u2, content: content2, comments: comments)
         let post3 = Post(id: 3, creator: u1, content: content3, comments: comments)
         let post4 = Post(id: 4, creator: u1, content: content4, comments: comments)
-        let post5 = Post(id: 4, creator: u2, content: content5, comments: comments)
+        let post5 = Post(id: 5, creator: u2, content: content5, comments: comments)
 
 
         return [

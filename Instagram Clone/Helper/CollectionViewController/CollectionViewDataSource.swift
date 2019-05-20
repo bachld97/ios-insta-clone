@@ -17,6 +17,13 @@ open class CollectionViewDataSource: NSObject {
         return nil
     }
     
+    open func constructIndexPath(for item: Any, usingPredicate predicate: (Any) -> Bool) -> IndexPath? {
+        if let idx = firstIndex(predicate: predicate) {
+            return IndexPath(item: idx, section: 0)
+        }
+        return nil
+    }
+    
     open func replaceItem(predicate: (Any) -> Bool,
                           transformIfTrue: (Any) -> Any) {
         guard let items = objects else {

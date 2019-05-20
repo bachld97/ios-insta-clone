@@ -71,6 +71,15 @@ extension FeedScreenViewController: PostEventDelegate {
             return it.post.postId == item.post.postId
         }
         
+        let reload = {
+            if let ip = self.dataSource?.constructIndexPath(for: item, usingPredicate: sameId) {
+                self.collectionView.reloadItems(at: [ip])
+            } else {
+                self.collectionView.reloadData()
+            }
+        }
+        
+        
         switch event {
         case .expandCaption:
             dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
@@ -79,7 +88,7 @@ extension FeedScreenViewController: PostEventDelegate {
                 }
                 return item.toExpanded()
             })
-            collectionView.reloadData()
+            reload()
         case .like:
             sendLike(for: item.post)
             dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
@@ -88,6 +97,7 @@ extension FeedScreenViewController: PostEventDelegate {
                 }
                 return item.toLiked()
             })
+//            reload()
         case .likeToggle:
             toggleLike(for: item.post)
             dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
@@ -96,6 +106,7 @@ extension FeedScreenViewController: PostEventDelegate {
                 }
                 return item.toggleLike()
             })
+//            reload()
         case .navigateComment:
             print("Navigate comment: \(item.post.postId)")
         case .navigateShare:
@@ -110,6 +121,8 @@ extension FeedScreenViewController: PostEventDelegate {
                 return item.setCurrentImage(index)
             })
         }
+        
+       
     }
     
     private func sendLike(for post: Post) {
