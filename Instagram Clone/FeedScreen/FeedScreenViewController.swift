@@ -49,7 +49,7 @@ class FeedScreenViewController: BaseCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let item = dataSource?.item(at: indexPath) as? PostItem
         let w = view.frame.width
-        let h = PostCollectionViewCell2.heightForCell(item, cellWidth: w)
+        let h = PostCollectionViewCell.heightForCell(item, cellWidth: w)
         return .width(w, height: h)
     }
     
@@ -58,37 +58,73 @@ class FeedScreenViewController: BaseCollectionViewController {
     }
 }
 
-extension FeedScreenViewController: PostLikeUnlikeDelegate, PostNavigateCommentDelegate, PostNavigateShareDelegate, PostExtendCaptionDelegate {
-    func postLiked(_ postId: Post.IdType) {
-        print("Post liked: \(postId)")
+extension FeedScreenViewController: PostEventDelegate {
+    func postEvent(_ event: PostEvent, happeningOn cell: CollectionViewCell) {
+        guard let item = cell.item as? PostItem else {
+            return
+        }
+        
+        let sameId: (Any) -> Bool = { it in
+            guard let it = it as? PostItem else {
+                return false
+            }
+            return it.post.postId == item.post.postId
+        }
+        
+        switch event {
+        case .expandCaption:
+            dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
+                guard let item = it as? PostItem else {
+                    return it
+                }
+                return item.toExpanded()
+            })
+            collectionView.reloadData()
+        case .like:
+            sendLike(for: item.post)
+            dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
+                guard let item = it as? PostItem else {
+                    return it
+                }
+                return item.toLiked()
+            })
+        case .likeToggle:
+            toggleLike(for: item.post)
+            dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
+                guard let item = it as? PostItem else {
+                    return it
+                }
+                return item.toggleLike()
+            })
+        case .navigateComment:
+            print("Navigate comment: \(item.post.postId)")
+        case .navigateShare:
+            print("Navigate share: \(item.post.postId)")
+        case .navigateCreator:
+            print("Navigate creator: \(item.post.creator.name)")
+        case .imagePositionUpdate(let index):
+            dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
+                guard let item = it as? PostItem else {
+                    return it
+                }
+                return item.setCurrentImage(index)
+            })
+        }
     }
     
-     func postUnliked(_ postId: Post.IdType) {
-        print("Post unliked: \(postId)")
+    private func sendLike(for post: Post) {
+        
     }
     
-    func navigateComment(_ postId: Post.IdType) {
-        print("To comment: \(postId)")
+    private func sendUnlike(for post: Post) {
+        
     }
     
-    func navigateShare(_ postId: Post.IdType) {
-        print("To share: \(postId)")
+    private func toggleLike(for post: Post) {
+        if post.content.likedByMe {
+            sendUnlike(for: post)
+        } else {
+            sendLike(for: post)
+        }
     }
-    
-    func extendCaptionForCell() {
-        collectionView?.reloadData()
-    }
-}
-
-protocol PostLikeUnlikeDelegate: class {
-    func postLiked(_ postId: Post.IdType)
-    func postUnliked(_ postId: Post.IdType)
-}
-
-protocol PostNavigateCommentDelegate: class {
-    func navigateComment(_ postId: Post.IdType)
-}
-
-protocol PostNavigateShareDelegate: class {
-    func navigateShare(_ postId: Post.IdType)
 }

@@ -17,6 +17,21 @@ open class CollectionViewDataSource: NSObject {
         return nil
     }
     
+    open func replaceItem(predicate: (Any) -> Bool,
+                          transformIfTrue: (Any) -> Any) {
+        guard let items = objects else {
+            return
+        }
+
+        let newObjects = items.map { it -> Any in
+            if predicate(it) {
+                return transformIfTrue(it)
+            }
+            return it
+        }
+        self.objects = newObjects
+    }
+    
     open func numberOfSections() -> Int {
         return 1
     }

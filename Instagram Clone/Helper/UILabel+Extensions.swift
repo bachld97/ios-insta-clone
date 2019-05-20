@@ -146,39 +146,3 @@ extension UILabel {
         return prev + 1
     }
 }
-
-extension String {
-    func subString(from: Int, to: Int) -> String {
-        precondition(from >= 0)
-        precondition(to < self.count)
-        precondition(from <= to)
-        let startIndex = self.index(self.startIndex, offsetBy: from)
-        let endIndex = self.index(self.startIndex, offsetBy: to)
-        return String(self[startIndex...endIndex])
-    }
-    
-    func subString(from: Int, length: Int) -> String {
-        precondition(from >= 0)
-        precondition(length >= 0)
-        precondition(from + length < self.count)
-        return subString(from: from, to: from + length)
-    }
-    
-    func countOccurrences(forSubstring s: String) -> Int
-    {
-        return components(separatedBy: s).count - 1
-    }
-    
-    func indexOfNext(characterIn charSet: CharacterSet, startingFrom index: Int) -> Int {
-        precondition(index < self.count)
-        
-        let remainingLookupRange = NSRange(
-            location: index + 1, length: self.count - index - 1
-        )
-        return (self as NSString).rangeOfCharacter(
-            from: charSet,
-            options: [],
-            range: remainingLookupRange
-        ).location
-    }
-}

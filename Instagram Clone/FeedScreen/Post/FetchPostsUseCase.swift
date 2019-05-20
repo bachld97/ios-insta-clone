@@ -21,7 +21,7 @@ class FetchPostsUseCase: UseCase {
         let content1 = Post.Content(
             caption: "Hello world. This is a long sentence. I want it to span 2 lines of UI. Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI. Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI. A little more. Hello world. This is a long sentence. I want it to span 2 lines of UI. Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI. Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI. A little more",
             images: [im1, im2, im3],
-            likeCount: 14)
+            likeCount: 1)
         
         let comments = [
             Post.Comment(creator: u1, content: "Hy I am a comment",replies: []),
@@ -32,7 +32,7 @@ class FetchPostsUseCase: UseCase {
         let content2 = Post.Content(
             caption: "1\n2 2a\n3\n4\n5\n",
             images: [im1, im2],
-            likeCount: 27)
+            likeCount: 0)
         
         let content3 = Post.Content(
             caption: "1 con vit xoe ra\n0002 cai canh\n3\n4\n5\n",

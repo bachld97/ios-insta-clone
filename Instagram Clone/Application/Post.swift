@@ -22,7 +22,7 @@ class Post {
     class Content {
         let caption: String
         let images: [Image]
-        let likeCount: Int
+        var likeCount: Int
         var likedByMe: Bool = false
         
         init(caption: String,
@@ -46,6 +46,24 @@ class Post {
         let creator: User
         let content: String
         let replies: [Post.Comment]
+    }
+    
+    func reverseLike() -> Post {
+        content.likedByMe = !content.likedByMe
+        if content.likedByMe {
+            content.likeCount += 1
+        } else {
+            content.likeCount -= 1
+        }
+        return self
+    }
+    
+    func liked() -> Post {
+        if !content.likedByMe {
+            content.likeCount += 1
+        }
+        content.likedByMe = true
+        return self
     }
 }
 

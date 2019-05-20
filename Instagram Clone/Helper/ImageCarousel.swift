@@ -1,6 +1,8 @@
 import UIKit
 
 class ImageCarousel: UIView, UIScrollViewDelegate {
+
+    private var imageSelectionChanged: ((Int) -> Void)?
     
     init(hideIndicator: Bool = false) {
         super.init(frame: .zero)
@@ -36,22 +38,21 @@ class ImageCarousel: UIView, UIScrollViewDelegate {
     private let pageIndicator: UIPageControl = {
         let indicator = UIPageControl()
         indicator.hidesForSinglePage = true
-        indicator.pageIndicatorTintColor = .lightGray
-        indicator.currentPageIndicatorTintColor = .darkGray
+        let selectedColor = UIColor.red
+        indicator.currentPageIndicatorTintColor = selectedColor
+        indicator.pageIndicatorTintColor = selectedColor.withAlphaComponent(0.4)
         indicator.isUserInteractionEnabled = false
         return indicator
     }()
     
-    private lazy var imageScroller: ImageScroller = {
-        let scroller = ImageScroller()
-        scroller.delegate = self
-        return scroller
-    }()
-
+    private lazy var imageScroller = ImageScroller()
+    
     var images = [Image]() {
         didSet {
+            precondition(!images.isEmpty)
             imageScroller.images = images
             pageIndicator.numberOfPages = images.count
+            imageScroller.delegate = self
         }
     }
     
@@ -64,7 +65,17 @@ class ImageCarousel: UIView, UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let w = frame.width
-        selectedImage = Int(floor((scrollView.contentOffset.x - w / 2) / w) + 1)
+        let selection = Int(floor((scrollView.contentOffset.x - w / 2) / w) + 1)
+        
+        // Clamping is neccessary. Boucing scrollView may produce out of bound index
+        selectedImage = min(max(selection, 0), images.count - 1)
+        imageSelectionChanged?(selectedImage)
+    }
+    
+    func clear() {
+        imageSelectionChanged = nil
+        self.imageScroller.delegate = nil
+        imageScroller.clear()
     }
 }
 
@@ -79,16 +90,17 @@ class ImageScroller: UIScrollView {
     
     private var imageViews: [UIImageView] = []
     private let container = UIView()
+    private var shouldAdjustScroll = false
+    var cachedRange = 1
     
     var selectedImage: Int = 0 {
         didSet {
             if images.isEmpty {
-                assertionFailure("Empty carousel should not exist.")
+                return
             }
             assert(selectedImage >= 0)
             assert(selectedImage < images.count)
             
-            let cachedRange = 1
             for (index, imageView) in imageViews.enumerated() {
                 if selectedImage - cachedRange ... selectedImage + cachedRange ~= index {
                     imageView.image(fromUrl: images[index].url)
@@ -96,10 +108,28 @@ class ImageScroller: UIScrollView {
                     imageView.image = nil
                 }
             }
+            
+            if shouldAdjustScroll {
+                shouldAdjustScroll = false
+                let visibleRect = imageViews[selectedImage].frame
+                scrollRectToVisible(visibleRect, animated: true)
+            }
         }
     }
     
+    func clear() {
+        self.contentSize = .zero
+        imageViews.forEach {
+            $0.image = nil
+            $0.removeFromSuperview()
+        }
+        images.removeAll()
+        imageViews.removeAll()
+        selectedImage = 0
+    }
+    
     private func images(didSetFrom oldValue: [Image]) {
+        shouldAdjustScroll = true
         let diff = oldValue.count - images.count
         if diff > 0 {
             for _ in 0 ..< diff {
@@ -113,13 +143,14 @@ class ImageScroller: UIScrollView {
                 imageViews.append(iv)
             }
         }
+        
+        updateContentSize()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .lightGray
         isPagingEnabled = true
-        bounces = false
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
         
@@ -135,6 +166,10 @@ class ImageScroller: UIScrollView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        updateContentSize()
+    }
+    
+    private func updateContentSize() {
         let width = self.frame.width
         let height = self.frame.height
         contentSize = CGSize(

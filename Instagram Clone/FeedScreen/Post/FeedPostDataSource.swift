@@ -17,7 +17,7 @@ class FeedPostDataSource: CollectionViewDataSource {
     }
     
     override func cellClasses() -> [CollectionViewCell.Type] {
-        return [PostCollectionViewCell2.self]
+        return [PostCollectionViewCell.self]
     }
     
     override open func headerClasses() -> [CollectionViewCell.Type] {
