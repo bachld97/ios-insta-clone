@@ -35,7 +35,7 @@ class DefaultCollectionFooter: DefaultCollectionViewCell {
 class PostCollectionViewCell2: CollectionViewCell {
     
     private static var fixedHeight = creatorRowHeight + actionButtonRowHeight
-    private static var creatorRowHeight: CGFloat = 48
+    private static var creatorRowHeight: CGFloat = 56
     private static var actionButtonRowHeight: CGFloat = 48
     
     static func heightForCell(_ item: PostItem?, cellWidth: CGFloat) -> CGFloat {
@@ -44,19 +44,35 @@ class PostCollectionViewCell2: CollectionViewCell {
         }
         
         let contentRowHeight = cellWidth * item.post.aspectRatio
-        let captionRowHeight = heightForCaptionRow(item, cellWidth)
+        let captionRowHeight = heightForCaption(item, cellWidth)
         return contentRowHeight + captionRowHeight + fixedHeight
     }
     
-    static func heightForCaptionRow(_ item: PostItem, _ cellWidth: CGFloat) -> CGFloat {
-        return 0
+    static private func heightForCaption(_ item: PostItem, _ cellWidth: CGFloat) -> CGFloat {
+        let captionHeight = item.post.creator.name.toBold(
+            withNonBold: item.post.content.caption,
+            boldFont: Styles.FeedPostCell.captionCreatorFont,
+            nonBoldFont: Styles.FeedPostCell.captionFont
+        ).heightToDisplay(
+                fixedWidth: cellWidth
+        )
+        
+        let lineHeight = Styles.FeedPostCell.captionCreatorFont.lineHeight
+        let numLines = Int(ceil(captionHeight / lineHeight))
+        let maxLine = Styles.FeedPostCell.collapsedLabelMaxLine
+        
+        if numLines <= maxLine || item.isTextExpanded {
+            return captionHeight
+        } else {
+            return lineHeight * CGFloat(maxLine)
+        }
     }
     
     weak var delegate: PostEventDelegate?
     private let padding = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
-    private let filledHeart = UIImage(named: "heart_filled")
-    private let emptyHeart = UIImage(named: "heart")
+    private let filledHeart = UIImage.original(named: "heart_filled")
+    private let emptyHeart = UIImage.original(named: "heart")
     
     private lazy var creatorRow: UIView = {
         let view = UIView()
@@ -66,9 +82,10 @@ class PostCollectionViewCell2: CollectionViewCell {
             top: view.topAnchor,
             leading: view.leadingAnchor,
             bottom: view.bottomAnchor,
-            trailing: nil
+            trailing: nil,
+            padding: .init(top: 8, left: 16, bottom: 8, right: 16)
         )
-        creatorImageView.backgroundColor = .yellow
+        creatorImageView.backgroundColor = .lightGray
         creatorImageView.aspectRatio(widthToHeight: 1)
         
         creatorLabel.anchor(
@@ -92,10 +109,15 @@ class PostCollectionViewCell2: CollectionViewCell {
         return view
     }()
     
-    private lazy var creatorImageView = UIImageView()
+    private lazy var creatorImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .lightGray
+        return imageView
+    }()
     
     private lazy var creatorLabel: UILabel = {
         let label = UILabel()
+        label.font = Styles.FeedPostCell.creatorLabelFont
         return label
     }()
     
@@ -117,16 +139,13 @@ class PostCollectionViewCell2: CollectionViewCell {
     
     private lazy var actionButtonRow: UIView = {
         let view = UIView()
-        let buttonPadding = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-        
         view.addViews(likeButton, commentButton, shareButton)
         
         likeButton.anchor(
             top: view.topAnchor,
             leading: view.leadingAnchor,
             bottom: view.bottomAnchor,
-            trailing: nil,
-            padding: .left(0, right: 8)
+            trailing: nil
         )
         likeButton.aspectRatio(widthToHeight: 1)
         
@@ -134,8 +153,7 @@ class PostCollectionViewCell2: CollectionViewCell {
             top: view.topAnchor,
             leading: likeButton.trailingAnchor,
             bottom: view.bottomAnchor,
-            trailing: nil,
-            padding: buttonPadding
+            trailing: nil
         )
         commentButton.aspectRatio(widthToHeight: 1)
 
@@ -143,8 +161,7 @@ class PostCollectionViewCell2: CollectionViewCell {
             top: view.topAnchor,
             leading: commentButton.trailingAnchor,
             bottom: view.bottomAnchor,
-            trailing: nil,
-            padding: buttonPadding
+            trailing: nil
         )
         shareButton.aspectRatio(widthToHeight: 1)
         
@@ -159,30 +176,42 @@ class PostCollectionViewCell2: CollectionViewCell {
     
     private lazy var commentButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "comment"), for: .normal)
+        button.setImage(UIImage.original(named: "comment"), for: .normal)
         button.addTarget(self, action: #selector(commentButtonOnTap), for: .touchUpInside)
         return button
     }()
     
     private lazy var shareButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "forward"), for: .normal)
+        button.setImage(UIImage.original(named: "forward"), for: .normal)
         button.addTarget(self, action: #selector(shareButtonOnTap), for: .touchUpInside)
         return button
     }()
     
     private lazy var likeCountLabel: UILabel = {
         let label = VanishableLabel()
+        label.font = Styles.FeedPostCell.likeCountFont
         return label
     }()
     
     private lazy var captionLabel: CaptionLabel = {
-        return CaptionLabel()
+        let label = CaptionLabel(
+            numberOfLinesWhenCollapsed: Styles.FeedPostCell.collapsedLabelMaxLine
+        )
+        label.captionFont = Styles.FeedPostCell.captionFont
+        label.creatorNameFont = Styles.FeedPostCell.captionCreatorFont
+        label.seeMoreFont = Styles.FeedPostCell.seeMoreFont
+        label.seeMoreColor = Styles.FeedPostCell.seeMoreColor
+        return label
     }()
     
     private lazy var timeAgoLabel: UILabel = {
-        return UILabel()
+        let label = UILabel()
+        label.font = Styles.FeedPostCell.timeAgoFont
+        return label
     }()
+    
+    private let overlayHeartImageView = UIImageView()
     
     override var viewController: BaseCollectionViewController? {
         didSet {
@@ -202,13 +231,18 @@ class PostCollectionViewCell2: CollectionViewCell {
         setupConstraints()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        creatorImageView.layer.cornerRadius = creatorImageView.frame.size.width / 2
+    }
+    
     private func setupConstraints() {
         creatorRow.anchor(
             top: topAnchor,
             leading: leadingAnchor,
             bottom: nil,
             trailing: trailingAnchor,
-            padding: padding,
+            padding: .zero,
             size: .height(PostCollectionViewCell2.creatorRowHeight)
         )
         
@@ -216,8 +250,7 @@ class PostCollectionViewCell2: CollectionViewCell {
             top: creatorRow.bottomAnchor,
             leading: leadingAnchor,
             bottom: nil,
-            trailing: trailingAnchor,
-            padding: .zero
+            trailing: trailingAnchor
         )
         
         actionButtonRow.anchor(
@@ -225,7 +258,7 @@ class PostCollectionViewCell2: CollectionViewCell {
             leading: leadingAnchor,
             bottom: nil,
             trailing: trailingAnchor,
-            padding: padding,
+            padding: .zero,
             size: .height(PostCollectionViewCell2.actionButtonRowHeight)
         )
         
@@ -234,16 +267,20 @@ class PostCollectionViewCell2: CollectionViewCell {
             leading: leadingAnchor,
             bottom: nil,
             trailing: trailingAnchor,
-            padding: padding,
+            padding: .left(16, right: 16),
             size: .init(width: 0, height: 12)
         )
         
+        let captionPadding = UIEdgeInsets(
+            top: 0, left: Styles.FeedPostCell.captionHorizontalPadding,
+            bottom: 0, right: Styles.FeedPostCell.captionHorizontalPadding
+        )
         captionLabel.anchor(
             top: likeCountLabel.bottomAnchor,
             leading: leadingAnchor,
             bottom: nil,
             trailing: trailingAnchor,
-            padding: padding
+            padding: captionPadding
         )
         
         timeAgoLabel.anchor(
@@ -256,17 +293,64 @@ class PostCollectionViewCell2: CollectionViewCell {
     }
     
     @objc private func imageOnDoubleTap() {
+        setupOverlayHeart()
         animateOverlayHeart()
         animateLikeButton(liked: true)
         delegate?.postEvent(.like, happeningOn: self)
     }
     
+    private func setupOverlayHeart() {
+        let overlaySize = CGSize(width: 72, height: 72)
+        imageCarousel.addSubview(overlayHeartImageView)
+        overlayHeartImageView.image = filledHeart
+        overlayHeartImageView.centerInSuperview(size: overlaySize)
+        imageCarousel.isUserInteractionEnabled = false
+    }
+    
     private func animateOverlayHeart() {
+        let duration = 0.12
         
+        let pulse1 = CABasicAnimation(keyPath: "transform.scale")
+        let pulse2 = CABasicAnimation(keyPath: "transform.scale")
+        let pulse3 = CABasicAnimation(keyPath: "transform.scale")
+        let shrink = CABasicAnimation(keyPath: "transform.scale")
+        
+        pulse1.duration = duration
+        pulse2.duration = duration
+        pulse3.duration = duration
+        
+        pulse2.beginTime = duration
+        pulse3.beginTime = duration * 2
+        
+        pulse1.fromValue = 1
+        pulse1.toValue = 1.25
+        
+        pulse2.fromValue = 1.25
+        pulse2.toValue = 1
+        
+        pulse3.fromValue = 1
+        pulse3.toValue = 1.1
+        
+        shrink.duration = duration
+        shrink.beginTime = duration * 3
+        shrink.fromValue = 1.1
+        shrink.toValue = 0
+        
+        let group = CAAnimationGroup()
+        group.duration = duration * 4
+        group.animations = [pulse1, pulse2, pulse3, shrink]
+        group.delegate = self
+        
+        overlayHeartImageView.layer.setAffineTransform(.init(scaleX: 0, y: 0))
+        overlayHeartImageView.layer.add(group, forKey: nil)
     }
     
     private func animateLikeButton(liked: Bool) {
-        
+        if liked {
+            likeButton.change(toImage: filledHeart, animated: true)
+        } else {
+            likeButton.change(toImage: emptyHeart, animated: true)
+        }
     }
     
     @objc private func captionOnTap(gesture: UITapGestureRecognizer) {
@@ -304,7 +388,6 @@ class PostCollectionViewCell2: CollectionViewCell {
         }
         
         func bindContent(_ postItem: PostItem) {
-            imageCarousel.images = postItem.post.content.images
             likeCountLabel.text = postItem.likeText
             timeAgoLabel.text = postItem.timeAgoText
             
@@ -313,6 +396,9 @@ class PostCollectionViewCell2: CollectionViewCell {
             } else {
                 likeButton.setImage(emptyHeart, for: .normal)
             }
+            
+            imageCarousel.images = postItem.post.content.images
+            imageCarousel.selectedImage = postItem.selectedImage
         }
         
         func bindCaption(_ postItem: PostItem) {
@@ -331,6 +417,17 @@ class PostCollectionViewCell2: CollectionViewCell {
         bindContent(item)
         bindCaption(item)
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+}
+
+extension PostCollectionViewCell2: CAAnimationDelegate {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        imageCarousel.isUserInteractionEnabled = true
+        self.overlayHeartImageView.removeFromSuperview()
+    }
 }
 
 protocol PostEventDelegate: class {
@@ -346,55 +443,6 @@ enum PostEvent {
     case navigateCreator
 }
 
-class ImageCarousel: UIView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        addSubview(imageView)
-    }
-    
-    init(indicator: Indicator = .none) {
-        self.indicator = indicator
-        super.init(frame: .zero)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private var indicator: Indicator = .none
-    
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .white
-        return imageView
-    }()
-    
-    var images: [Image] = [] {
-        didSet {
-            selectedImage = 0
-        }
-    }
-    
-    private var selectedImage: Int = 0 {
-        didSet {
-            if images.isEmpty {
-                return
-            }
-            
-            precondition(selectedImage >= 0)
-            precondition(selectedImage < self.images.count)
-            self.imageView.image(fromUrl: images[selectedImage].url)
-        }
-    }
-    
-    enum Indicator {
-        case none
-        case dot
-        case slide
-    }
-}
-
 struct Image {
     let url: String
 }
@@ -402,16 +450,21 @@ struct Image {
 class CaptionLabel: UILabel {
     var creatorNameFont = UIFont.boldSystemFont(ofSize: 12)
     var captionFont = UIFont.systemFont(ofSize: 12)
-
     var seeMoreFont = UIFont.systemFont(ofSize: 12)
     var seeMoreColor = UIColor.black
-    var seeMorePrefix: String = ""
-    var seeMoreText: String = ""
-    
+    var seeMorePrefix: String
+    var seeMoreText: String
     var numberOfLinesWhenCollapsed: Int
     
-    init(numberOfLinesWhenCollapsed: Int = 2) {
+    var currentCaption: String = ""
+    var currentCreatorName: String = ""
+    
+    init(numberOfLinesWhenCollapsed: Int = 2,
+         seeMorePrefix: String = "… ",
+         seeMoreText: String = "more") {
         self.numberOfLinesWhenCollapsed = numberOfLinesWhenCollapsed
+        self.seeMorePrefix = seeMorePrefix
+        self.seeMoreText = seeMoreText
         super.init(frame: .zero)
         numberOfLines = numberOfLinesWhenCollapsed
     }
@@ -420,7 +473,18 @@ class CaptionLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func expand() {
+        setCaption(currentCaption, creatorName: currentCreatorName, collapseText: false)
+    }
+    
+    func collapse() {
+        setCaption(currentCaption, creatorName: currentCreatorName, collapseText: true)
+    }
+    
     func setCaption(_ caption: String, creatorName: String, collapseText: Bool) {
+        self.currentCaption = caption
+        self.currentCreatorName = creatorName
+        
         self.textFrom(
             bold: creatorName, nonBold: caption,
             boldFont: creatorNameFont, nonBoldFont: captionFont
@@ -441,5 +505,15 @@ class CaptionLabel: UILabel {
 }
 
 class VanishableLabel: UILabel {
-
+    
+    let clientUsingAutoLayout: Bool
+    
+    init(clientUsingAutoLayout: Bool = true) {
+        self.clientUsingAutoLayout = clientUsingAutoLayout
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

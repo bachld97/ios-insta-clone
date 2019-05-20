@@ -12,10 +12,15 @@ class FetchPostsUseCase: UseCase {
     }
 
     private func posts() -> [Post] {
+        
+        let im1 = Image(url: "https://via.placeholder.com/480/")
+        let im2 = Image(url: "https://via.placeholder.com/320/")
+        let im3 = Image(url: "https://via.placeholder.com/720/")
+
         let u1 = User(name: "bachld")
         let content1 = Post.Content(
             caption: "Hello world. This is a long sentence. I want it to span 2 lines of UI. Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI. Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI. A little more. Hello world. This is a long sentence. I want it to span 2 lines of UI. Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI. Hello world. Hello. This is a long sentence. I wan it to span 2 lines of UI. A little more",
-            images: [.init(url: "https://via.placeholder.com/480/")],
+            images: [im1, im2, im3],
             likeCount: 14)
         
         let comments = [
@@ -26,22 +31,22 @@ class FetchPostsUseCase: UseCase {
         let u2 = User(name: "ldbach")
         let content2 = Post.Content(
             caption: "1\n2 2a\n3\n4\n5\n",
-            images: [.init(url: "https://via.placeholder.com/480/")],
+            images: [im1, im2],
             likeCount: 27)
         
         let content3 = Post.Content(
             caption: "1 con vit xoe ra\n0002 cai canh\n3\n4\n5\n",
-            images: [.init(url: "https://via.placeholder.com/480/")],
+            images: [im3],
             likeCount: 27)
         
         let content4 = Post.Content(
             caption: "Hello world. This is a long sentence. I want it to span 2 lines of UIz\nHi i am 3rd line",
-            images: [.init(url: "https://via.placeholder.com/480/")],
+            images: [im1, im3],
             likeCount: 27)
         
         let content5 = Post.Content(
             caption: "Hello world. This is a long sentence. I want it to span 2 lines of UIz\nHelllllloooo i am 3rd line",
-            images: [.init(url: "https://via.placeholder.com/480/")],
+            images: [im2],
             likeCount: 27)
         
         let post = Post(id: 1, creator: u1, content: content1, comments: comments)

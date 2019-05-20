@@ -42,6 +42,8 @@
 		14937BA522730EBB00AD00F8 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14937BA422730EBB00AD00F8 /* UIColor+Extension.swift */; };
 		14937BA822731A3900AD00F8 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14937BA722731A3900AD00F8 /* Spacing.swift */; };
 		14981BE0227FD3EB0024BCEB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14981BDF227FD3EB0024BCEB /* BaseViewController.swift */; };
+		14A39A62229244B200F31D59 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A39A61229244B200F31D59 /* Styles.swift */; };
+		14A39A642292552400F31D59 /* ImageCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A39A632292552400F31D59 /* ImageCarousel.swift */; };
 		14A58EC0227FFF2D00183A98 /* NotificationScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A58EBF227FFF2D00183A98 /* NotificationScreenViewController.swift */; };
 		14A58EC2227FFF3800183A98 /* ProfileScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A58EC1227FFF3800183A98 /* ProfileScreenViewController.swift */; };
 		14A58EC4227FFF4200183A98 /* CreateScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A58EC3227FFF4200183A98 /* CreateScreenViewController.swift */; };
@@ -125,6 +127,8 @@
 		14937BA422730EBB00AD00F8 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		14937BA722731A3900AD00F8 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		14981BDF227FD3EB0024BCEB /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		14A39A61229244B200F31D59 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		14A39A632292552400F31D59 /* ImageCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCarousel.swift; sourceTree = "<group>"; };
 		14A58EBF227FFF2D00183A98 /* NotificationScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScreenViewController.swift; sourceTree = "<group>"; };
 		14A58EC1227FFF3800183A98 /* ProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewController.swift; sourceTree = "<group>"; };
 		14A58EC3227FFF4200183A98 /* CreateScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateScreenViewController.swift; sourceTree = "<group>"; };
@@ -269,6 +273,7 @@
 				14277E0F227C289500FF362C /* User.swift */,
 				143873B822803A78000B14F7 /* Story.swift */,
 				141C4C4F2282DE5D00C3DB0C /* Post.swift */,
+				14A39A61229244B200F31D59 /* Styles.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -318,6 +323,7 @@
 				14E018B0228951B800DB50B6 /* NSAttributtedString+Extensions.swift */,
 				1473227B228C18CB00588B80 /* UITapGestureRecognizer+Extensions.swift */,
 				140728D4228E8D5E007B2CAD /* UIEdgeInsets+Extensions.swift */,
+				14A39A632292552400F31D59 /* ImageCarousel.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -646,6 +652,7 @@
 				14A58EC6227FFF4C00183A98 /* SearchScreenViewController.swift in Sources */,
 				14376AC9228A9EA50010F3AD /* StoriesCollectionViewController.swift in Sources */,
 				14E018B322895D2600DB50B6 /* PostItem.swift in Sources */,
+				14A39A642292552400F31D59 /* ImageCarousel.swift in Sources */,
 				141C4C502282DE5D00C3DB0C /* Post.swift in Sources */,
 				14E018A622891A0300DB50B6 /* FeedScreenViewController.swift in Sources */,
 				141FCF51228019BA00078ED3 /* GenericCollectionView.swift in Sources */,
@@ -657,6 +664,7 @@
 				14937BA322730C1600AD00F8 /* String+Extension.swift in Sources */,
 				1473227C228C18CB00588B80 /* UITapGestureRecognizer+Extensions.swift in Sources */,
 				141C4C522282DE7E00C3DB0C /* FetchPostsUseCase.swift in Sources */,
+				14A39A62229244B200F31D59 /* Styles.swift in Sources */,
 				14E018A922891A3800DB50B6 /* CollectionViewDataSource.swift in Sources */,
 				142991FA2272F79F00BC80DA /* AppDelegate.swift in Sources */,
 				14376ACD228A9EDE0010F3AD /* StoryCollectionViewDataSource.swift in Sources */,

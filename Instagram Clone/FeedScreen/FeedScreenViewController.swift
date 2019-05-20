@@ -49,7 +49,7 @@ class FeedScreenViewController: BaseCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let item = dataSource?.item(at: indexPath) as? PostItem
         let w = view.frame.width
-        let h = PostCollectionViewCell.heightFor(item, cellWidth: w)
+        let h = PostCollectionViewCell2.heightForCell(item, cellWidth: w)
         return .width(w, height: h)
     }
     
