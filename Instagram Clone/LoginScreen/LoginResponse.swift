@@ -1,36 +1,58 @@
-struct LoginResponse: Decodable {
+struct TokenInfo: Decodable {
+    let accessToken: String
+    
     private enum CodingKeys: String, CodingKey {
-        case userNotExist = "userNotFound"
-        case wrongPassword = "wrongPassword"
-        case userInfo = "user"
+        case accessToken = "access_token"
+    }
+}
+
+struct UserInfo: Decodable {
+    let name: String
+    
+    func toUser() -> User {
+        return User(name: name)
+    }
+}
+
+enum LoginResponse {
+    case success(UserInfo)
+    case wrongPassword
+    case userNotFound
+    case unknownError}
+
+enum LoginFailure {
+}
+
+struct LoginApiResponse: Decodable {
+    private let userNotFound: Bool
+    private let wrongPassword: Bool
+    private let tokenInfo: TokenInfo?
+    private let userInfo: UserInfo?
+    
+    var isSuccess: Bool {
+        return userInfo != nil && tokenInfo != nil
     }
     
-    var result: Result<User, LoginUseCase.Error> {
-        if userNotExist {
-            return .failure(.userNotExist)
-        }
-        
-        if wrongPassword {
-            return .failure(.badCredential)
-        }
-        
-        guard let ui = userInfo else {
-            return .failure(.unknown)
-        }
-        
-        return .success(ui.clientData)
+    var token: TokenInfo {
+        return self.tokenInfo!
     }
     
-    let userNotExist: Bool
-    let wrongPassword: Bool
-    let userInfo: UserResponse?
-    
-    
-    struct UserResponse: Decodable {
-        let name: String
-        
-        var clientData: User {
-            return User(name: name)
+    func toLoginResponse() -> LoginResponse {
+        if userNotFound {
+            return .userNotFound
+        } else if wrongPassword {
+            return .wrongPassword
+        } else if isSuccess {
+            return .success(userInfo!)
+        } else {
+            return .unknownError
         }
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case userNotFound = "user_not_found"
+        case wrongPassword = "wrong_password"
+        case tokenInfo = "token_info"
+        case userInfo = "user_info"
     }
 }

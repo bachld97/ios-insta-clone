@@ -4,6 +4,8 @@ class FeedScreenViewController: BaseCollectionViewController {
     
     private let fetchPosts: FetchPostsUseCase
     private let fetchStories: FetchStoriesUseCase
+    private let sendLike: SendLikeUseCase
+    private let sendUnlike: SendUnlikeUseCase
     
     private let user: User
     
@@ -11,10 +13,14 @@ class FeedScreenViewController: BaseCollectionViewController {
     
     init(viewingAs user: User,
          fetchPosts: FetchPostsUseCase = .init(),
-         fetchStories: FetchStoriesUseCase = .init()) {
+         fetchStories: FetchStoriesUseCase = .init(),
+         sendLike: SendLikeUseCase = .init(),
+         sendUnlike: SendUnlikeUseCase = .init()) {
         self.user = user
         self.fetchPosts = fetchPosts
         self.fetchStories = fetchStories
+        self.sendLike = sendLike
+        self.sendUnlike = sendUnlike
         super.init()
     }
     
@@ -90,14 +96,13 @@ extension FeedScreenViewController: PostEventDelegate {
             })
             reload()
         case .like:
-            sendLike(for: item.post)
+            requestSendLike(for: item.post)
             dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
                 guard let item = it as? PostItem else {
                     return it
                 }
                 return item.toLiked()
             })
-//            reload()
         case .likeToggle:
             toggleLike(for: item.post)
             dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
@@ -106,7 +111,6 @@ extension FeedScreenViewController: PostEventDelegate {
                 }
                 return item.toggleLike()
             })
-//            reload()
         case .navigateComment:
             print("Navigate comment: \(item.post.postId)")
         case .navigateShare:
@@ -121,23 +125,21 @@ extension FeedScreenViewController: PostEventDelegate {
                 return item.setCurrentImage(index)
             })
         }
-        
-       
     }
     
-    private func sendLike(for post: Post) {
+    private func requestSendLike(for post: Post) {
         
     }
     
-    private func sendUnlike(for post: Post) {
+    private func requestSendUnlike(for post: Post) {
         
     }
     
     private func toggleLike(for post: Post) {
         if post.content.likedByMe {
-            sendUnlike(for: post)
+            requestSendUnlike(for: post)
         } else {
-            sendLike(for: post)
+            requestSendLike(for: post)
         }
     }
 }

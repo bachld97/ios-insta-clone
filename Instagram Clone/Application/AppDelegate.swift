@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  Instagram Clone
-//
-//  Created by CPU12071 on 4/26/19.
-//  Copyright © 2019 Le Duy Bach. All rights reserved.
-//
-
 import UIKit
 
 func delay(_ delay: Double, closure: @escaping () -> ()) {

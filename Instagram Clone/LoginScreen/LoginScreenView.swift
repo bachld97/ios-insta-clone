@@ -98,7 +98,7 @@ class LoginScreenView: UIView {
     
     private lazy var logoBanner: UILabel = {
         let label = UILabel()
-        label.text = "Instagram"
+        label.text = "Hello world"
         label.font = .boldSystemFont(ofSize: 32)
         label.textColor = .black
         label.textAlignment = .center

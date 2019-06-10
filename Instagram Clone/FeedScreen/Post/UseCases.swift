@@ -12,7 +12,6 @@ class FetchPostsUseCase: UseCase {
     }
 
     private func posts() -> [Post] {
-        
         let im1 = Image(url: "https://via.placeholder.com/480/")
         let im2 = Image(url: "https://via.placeholder.com/320/")
         let im3 = Image(url: "https://via.placeholder.com/720/")
@@ -60,4 +59,24 @@ class FetchPostsUseCase: UseCase {
             post, post2, post3, post4, post5
         ]
     }
+}
+
+
+class SendLikeUseCase: UseCase {
+    func execute(_ request: Post, completion: @escaping (Bool) -> Void) {
+        
+    }
+    
+    typealias Request = Post
+    typealias Response = Bool
+}
+
+class SendUnlikeUseCase: UseCase {
+    func execute(_ request: Post, completion: @escaping (Bool) -> Void) {
+        
+    }
+    
+    typealias Request = Post
+    typealias Response = Bool
+    
 }
