@@ -11,9 +11,17 @@ class Endpoint {
     static func loginRequest(username: String, password: String) -> WebService.Request {
         let params = [ "username" : username, "password": password ]
         let request = WebService.Request(
-            host: host, path: "/auth/login/",
-            params: params,
-            port: port, httpMethod: .post
+            host: host, path: "/auth/login/", params: params, port: port, httpMethod: .post
+        )
+        return request
+    }
+    
+    static func fetchPostsRequest(viewingAs user: User) -> WebService.Request {
+        assert(tokenInfo != nil)
+        
+        let request = WebService.Request(
+            host: host, path: "/v1/post/", params: nil, port: port, httpMethod: .get,
+            cookies: nil, accessToken: tokenInfo!.accessToken
         )
         return request
     }

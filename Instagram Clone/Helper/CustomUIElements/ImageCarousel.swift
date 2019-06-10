@@ -47,7 +47,7 @@ class ImageCarousel: UIView, UIScrollViewDelegate {
     
     private lazy var imageScroller = ImageScroller()
     
-    var images = [Image]() {
+    var images = [ICImage]() {
         didSet {
             precondition(!images.isEmpty)
             imageScroller.images = images
@@ -82,7 +82,7 @@ class ImageCarousel: UIView, UIScrollViewDelegate {
 
 class ImageScroller: UIScrollView {
 
-    var images: [Image] = [] {
+    var images: [ICImage] = [] {
         didSet {
             images(didSetFrom: oldValue)
         }
@@ -128,7 +128,7 @@ class ImageScroller: UIScrollView {
         selectedImage = 0
     }
     
-    private func images(didSetFrom oldValue: [Image]) {
+    private func images(didSetFrom oldValue: [ICImage]) {
         shouldAdjustScroll = true
         let diff = oldValue.count - images.count
         if diff > 0 {

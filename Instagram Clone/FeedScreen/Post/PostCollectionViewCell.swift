@@ -17,7 +17,7 @@ class PostCollectionViewCell: CollectionViewCell {
             return item.cachedCollapseHeight
         }
         
-        let contentRowHeight = cellWidth * item.post.aspectRatio
+        let contentRowHeight = cellWidth // Aspect ratio is 1.0 (business logic)
         let captionRowHeight = heightForCaption(item, cellWidth)
         let height = contentRowHeight + captionRowHeight + fixedHeight
         if item.isTextExpanded {

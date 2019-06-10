@@ -22,7 +22,7 @@ class LoginUseCase: UseCase {
                 if apiResponse.isSuccess {
                     Endpoint.registerToken(tokenInfo: apiResponse.token)
                 }
-                completion(.success(response))
+                return completion(.success(response))
             case .failure(let error):
                 return completion(.failure(error))
             }

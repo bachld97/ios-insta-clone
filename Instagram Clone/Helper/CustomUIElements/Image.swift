@@ -1,3 +1,3 @@
-struct Image {
+struct ICImage {
     let url: String
 }
