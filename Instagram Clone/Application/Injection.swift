@@ -6,4 +6,8 @@ class Injection {
     static func getPostRepository() -> PostRepository {
         return PostRepositoryImpl()
     }
+    
+    static func getWebService() -> WebService {
+        return WebService()
+    }
 }

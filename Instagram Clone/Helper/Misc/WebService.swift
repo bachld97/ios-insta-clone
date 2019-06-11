@@ -1,15 +1,12 @@
 import Foundation
 
 class WebService {
-    
     private let session: URLSession
-    
     
     init(session: URLSession = .shared) {
         self.session = session
     }
-    
-    
+
     func execute<T: Decodable>(
         request: Request,
         completion: @escaping (Result<T, Swift.Error>) -> Void,
@@ -83,9 +80,19 @@ class WebService {
             httpMethod: Method = .get,
             cookies: String? = nil,
             accessToken: String? = nil
-            ) {
-            self.host = host
-            self.path = path
+        ) {
+            if host.hasSuffix("/") {
+                self.host = host.subString(from: 0, length: host.count - 1)
+            } else {
+                self.host = host
+            }
+
+            if path.hasPrefix("/") {
+                self.path = path
+            } else {
+                self.path = "/\(path)"
+            }
+            
             self.params = params
             self.httpMethod = httpMethod
             self.cookies = cookies

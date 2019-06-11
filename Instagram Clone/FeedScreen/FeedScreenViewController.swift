@@ -15,7 +15,8 @@ class FeedScreenViewController: BaseCollectionViewController {
          fetchPosts: FetchPostsUseCase = .init(),
          fetchStories: FetchStoriesUseCase = .init(),
          sendLike: SendLikeUseCase = .init(),
-         sendUnlike: SendUnlikeUseCase = .init()) {
+         sendUnlike: SendUnlikeUseCase = .init()
+    ) {
         self.user = user
         self.fetchPosts = fetchPosts
         self.fetchStories = fetchStories
@@ -70,15 +71,15 @@ extension FeedScreenViewController: PostEventDelegate {
             return
         }
         
-        let sameId: (Any) -> Bool = { it in
+        let isPostEqual: (Any) -> Bool = { it in
             guard let it = it as? PostItem else {
                 return false
             }
-            return it.post.postId == item.post.postId
+            return it.post == item.post
         }
         
         let reload = {
-            if let ip = self.dataSource?.constructIndexPath(for: item, usingPredicate: sameId) {
+            if let ip = self.dataSource?.constructIndexPath(for: item, usingPredicate: isPostEqual) {
                 self.collectionView.reloadItems(at: [ip])
             } else {
                 self.collectionView.reloadData()
@@ -88,7 +89,7 @@ extension FeedScreenViewController: PostEventDelegate {
         
         switch event {
         case .expandCaption:
-            dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
+            dataSource?.replaceItem(predicate: isPostEqual, transformIfTrue: { it in
                 guard let item = it as? PostItem else {
                     return it
                 }
@@ -97,7 +98,7 @@ extension FeedScreenViewController: PostEventDelegate {
             reload()
         case .like:
             requestSendLike(for: item.post)
-            dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
+            dataSource?.replaceItem(predicate: isPostEqual, transformIfTrue: { it in
                 guard let item = it as? PostItem else {
                     return it
                 }
@@ -105,7 +106,7 @@ extension FeedScreenViewController: PostEventDelegate {
             })
         case .likeToggle:
             toggleLike(for: item.post)
-            dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
+            dataSource?.replaceItem(predicate: isPostEqual, transformIfTrue: { it in
                 guard let item = it as? PostItem else {
                     return it
                 }
@@ -118,7 +119,7 @@ extension FeedScreenViewController: PostEventDelegate {
         case .navigateCreator:
             print("Navigate creator: \(item.post.creator.name)")
         case .imagePositionUpdate(let index):
-            dataSource?.replaceItem(predicate: sameId, transformIfTrue: { it in
+            dataSource?.replaceItem(predicate: isPostEqual, transformIfTrue: { it in
                 guard let item = it as? PostItem else {
                     return it
                 }
@@ -128,11 +129,15 @@ extension FeedScreenViewController: PostEventDelegate {
     }
     
     private func requestSendLike(for post: Post) {
-        
+        sendLike.execute(post, completion: { isSuccess in
+            print("Send like action is successful: \(isSuccess)")
+        })
     }
     
     private func requestSendUnlike(for post: Post) {
-        
+        sendUnlike.execute(post, completion: { isSuccess in
+            print("Send unlike action is successful: \(isSuccess)")
+        })
     }
     
     private func toggleLike(for post: Post) {

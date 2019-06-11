@@ -17,11 +17,39 @@ class Endpoint {
     }
     
     static func fetchPostsRequest(viewingAs user: User) -> WebService.Request {
-        assert(tokenInfo != nil)
-        
+        guard let tokenInfo = tokenInfo else {
+            fatalError("Nil token here indicates programming error.")
+        }
+
         let request = WebService.Request(
             host: host, path: "/v1/post/", params: nil, port: port, httpMethod: .get,
-            cookies: nil, accessToken: tokenInfo!.accessToken
+            cookies: nil, accessToken: tokenInfo.accessToken
+        )
+        return request
+    }
+    
+    static func likeRequest(for post: Post) -> WebService.Request {
+        guard let tokenInfo = tokenInfo else {
+            fatalError("Nil token here indicates programming error.")
+        }
+        
+        let request = WebService.Request(
+            host: host, path: "/v1/post/\(post.postId)/like/",
+            params: nil, port: port, httpMethod: .post,
+            cookies: nil, accessToken: tokenInfo.accessToken
+        )
+        return request
+    }
+    
+    static func unlikeRequest(for post: Post) -> WebService.Request {
+        guard let tokenInfo = tokenInfo else {
+            fatalError("Nil token here indicates programming error.")
+        }
+        
+        let request = WebService.Request(
+            host: host, path: "/v1/post/\(post.postId)/unlike/",
+            params: nil, port: port, httpMethod: .post,
+            cookies: nil, accessToken: tokenInfo.accessToken
         )
         return request
     }

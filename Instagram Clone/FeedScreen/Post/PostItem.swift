@@ -28,9 +28,9 @@ class PostItem {
         return "\(post.content.likeCount)" + " likes".localized
     }
     
-    var timeAgoText: String = {
-        return "10 years ago"
-    }()
+    var timeAgoText: String {
+        return "\(post.ageInSeconds) minutes ago"
+    }
     
     func toExpanded() -> PostItem {
         return PostItem(post, true, selectedImage)

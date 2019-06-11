@@ -1,5 +1,5 @@
 import Foundation
-
+    
 class FetchPostsUseCase: UseCase {
     typealias Request = User
     typealias Response = [Post]
@@ -30,45 +30,52 @@ class FetchPostsUseCase: UseCase {
     }
 }
 
-protocol PostRepository {
-    func fetch(
-        viewingAs user: User,
-        completion: @escaping (Result<[PostFromApiResponse], Error>) -> Void
-    )
-}
-
-class PostRepositoryImpl: PostRepository {
-    
-    private let webService: WebService
-    
-    init(webService: WebService = .init()) {
-        self.webService = webService
-    }
-    
-    func fetch(
-        viewingAs user: User,
-        completion: @escaping (Result<[PostFromApiResponse], Error>) -> Void
-    ) {
-        let request = Endpoint.fetchPostsRequest(viewingAs: user)
-        webService.execute(request: request, completion: completion)
-    }
-}
-
-
 class SendLikeUseCase: UseCase {
-    func execute(_ request: Post, completion: @escaping (Bool) -> Void) {
-        
-    }
-    
     typealias Request = Post
     typealias Response = Bool
+    
+    private let postRepository: PostRepository
+    
+    init(postRepository: PostRepository = Injection.getPostRepository()) {
+        self.postRepository = postRepository
+    }
+    
+    func execute(_ request: Post, completion: @escaping (Bool) -> Void) {
+        let sendLikeCallback: (Result<LikePostResponse, Error>) -> Void = { result in
+            switch result {
+            case .success(let response):
+                return completion(response.success)
+            case .failure(let error):
+                print("DEBUG: error send like - \(error)")
+                return completion(false)
+            }
+        }
+        
+        postRepository.sendLike(post: request, completion: sendLikeCallback)
+    }
 }
 
 class SendUnlikeUseCase: UseCase {
-    func execute(_ request: Post, completion: @escaping (Bool) -> Void) {
-        
-    }
-    
     typealias Request = Post
     typealias Response = Bool
+    
+    private let postRepository: PostRepository
+    
+    init(postRepository: PostRepository = Injection.getPostRepository()) {
+        self.postRepository = postRepository
+    }
+    
+    func execute(_ request: Post, completion: @escaping (Bool) -> Void) {
+        let sendUnlikeCallback: (Result<UnlikePostResponse, Error>) -> Void = { result in
+            switch result {
+            case .success(let response):
+                return completion(response.success)
+            case .failure(let error):
+                print("DEBUG: error send unlike - \(error)")
+                return completion(false)
+            }
+        }
+        
+        postRepository.sendUnlike(post: request, completion: sendUnlikeCallback)
+    }
 }

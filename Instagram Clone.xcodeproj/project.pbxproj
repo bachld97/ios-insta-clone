@@ -10,6 +10,8 @@
 		14029A6C22857089009367F6 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14029A6B22857089009367F6 /* UILabel+Extensions.swift */; };
 		140728D3228E5648007B2CAD /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140728D2228E5648007B2CAD /* PostCollectionViewCell.swift */; };
 		140728D5228E8D5E007B2CAD /* UIEdgeInsets+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140728D4228E8D5E007B2CAD /* UIEdgeInsets+Extensions.swift */; };
+		140D080022AF8DCA00F51609 /* PostREpository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D07FF22AF8DCA00F51609 /* PostREpository.swift */; };
+		140D080222AF8E5100F51609 /* PostApiResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140D080122AF8E5100F51609 /* PostApiResponses.swift */; };
 		14114BE5227FE307005E161E /* HomeNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14114BE4227FE307005E161E /* HomeNavigationViewController.swift */; };
 		141C4C502282DE5D00C3DB0C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141C4C4F2282DE5D00C3DB0C /* Post.swift */; };
 		141C4C522282DE7E00C3DB0C /* UseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141C4C512282DE7E00C3DB0C /* UseCases.swift */; };
@@ -92,6 +94,8 @@
 		14029A6B22857089009367F6 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		140728D2228E5648007B2CAD /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 		140728D4228E8D5E007B2CAD /* UIEdgeInsets+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extensions.swift"; sourceTree = "<group>"; };
+		140D07FF22AF8DCA00F51609 /* PostREpository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostREpository.swift; sourceTree = "<group>"; };
+		140D080122AF8E5100F51609 /* PostApiResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostApiResponses.swift; sourceTree = "<group>"; };
 		14114BE4227FE307005E161E /* HomeNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationViewController.swift; sourceTree = "<group>"; };
 		141C4C4F2282DE5D00C3DB0C /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		141C4C512282DE7E00C3DB0C /* UseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCases.swift; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 				14E018B622895D4A00DB50B6 /* FeedPostDataSource.swift */,
 				141C4C512282DE7E00C3DB0C /* UseCases.swift */,
 				14A39A672292897C00F31D59 /* PostEvent.swift */,
+				140D07FF22AF8DCA00F51609 /* PostREpository.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -368,6 +373,7 @@
 				14E018A522891A0300DB50B6 /* FeedScreenViewController.swift */,
 				141C4C4C2282DD9900C3DB0C /* Post */,
 				143873BE22803ABB000B14F7 /* Story */,
+				140D080122AF8E5100F51609 /* PostApiResponses.swift */,
 			);
 			path = FeedScreen;
 			sourceTree = "<group>";
@@ -670,6 +676,7 @@
 				14E018AF22891EC300DB50B6 /* CGSize+Extensions.swift in Sources */,
 				14BE625D22852216007FBE77 /* UIImageView+Extensions.swift in Sources */,
 				14699C8822AE0BFF006EDAF7 /* Injection.swift in Sources */,
+				140D080022AF8DCA00F51609 /* PostREpository.swift in Sources */,
 				143873B922803A78000B14F7 /* Story.swift in Sources */,
 				14114BE5227FE307005E161E /* HomeNavigationViewController.swift in Sources */,
 				140728D3228E5648007B2CAD /* PostCollectionViewCell.swift in Sources */,
@@ -689,6 +696,7 @@
 				14699C8C22AE0C39006EDAF7 /* LoginRepository.swift in Sources */,
 				14029A6C22857089009367F6 /* UILabel+Extensions.swift in Sources */,
 				14937BA522730EBB00AD00F8 /* UIColor+Extension.swift in Sources */,
+				140D080222AF8E5100F51609 /* PostApiResponses.swift in Sources */,
 				14937BA322730C1600AD00F8 /* String+Extension.swift in Sources */,
 				1473227C228C18CB00588B80 /* UITapGestureRecognizer+Extensions.swift in Sources */,
 				141C4C522282DE7E00C3DB0C /* UseCases.swift in Sources */,

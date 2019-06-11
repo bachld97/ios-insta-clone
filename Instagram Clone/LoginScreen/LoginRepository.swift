@@ -7,7 +7,7 @@ class LoginRepositoryImpl: LoginRepository {
     
     private let webService: WebService
     
-    init(webService: WebService = .init()) {
+    init(webService: WebService = Injection.getWebService()) {
         self.webService = webService
     }
     
