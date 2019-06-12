@@ -13,6 +13,18 @@ protocol PostRepository {
         post: Post,
         completion: @escaping (Result<UnlikePostResponse, Error>) -> Void
     )
+    
+    func getComments(
+        post: Post,
+        lastCommentId: Post.Comment.IdType?,
+        completion: @escaping (Result<[CommentFromApiResponse], Error>) -> Void
+    )
+    
+//    func sendComment(
+//        content: String,
+//        to post: Post,
+//        completion: @escaping (Result<Bool, Error>) -> Void
+//    )
 }
 
 class PostRepositoryImpl: PostRepository {
@@ -44,6 +56,15 @@ class PostRepositoryImpl: PostRepository {
         completion: @escaping (Result<UnlikePostResponse, Error>) -> Void
     ) {
         let request = Endpoint.unlikeRequest(for: post)
+        webService.execute(request: request, completion: completion)
+    }
+    
+    func getComments(
+        post: Post,
+        lastCommentId: Post.Comment.IdType?,
+        completion: @escaping (Result<[CommentFromApiResponse], Error>) -> Void
+    ) {
+        let request = Endpoint.fetchCommentRequest(for: post, lastCommentId: lastCommentId)
         webService.execute(request: request, completion: completion)
     }
 }

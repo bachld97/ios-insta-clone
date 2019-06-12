@@ -7,10 +7,11 @@ struct TokenInfo: Decodable {
 }
 
 struct UserInfo: Decodable {
+    let id: User.IdType
     let name: String
     
     func toUser() -> User {
-        return User(name: name)
+        return User(id: id, name: name)
     }
 }
 
@@ -19,9 +20,6 @@ enum LoginResponse {
     case wrongPassword
     case userNotFound
     case unknownError}
-
-enum LoginFailure {
-}
 
 struct LoginApiResponse: Decodable {
     private let userNotFound: Bool

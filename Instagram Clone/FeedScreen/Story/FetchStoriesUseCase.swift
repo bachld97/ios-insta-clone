@@ -9,8 +9,8 @@ class FetchStoriesUseCase: UseCase {
     }
     
     private func stories() -> [Story] {
-        let bachld = User(name: "yhgpq")
-        let ldbach = User(name: "ldbach")
+        let bachld = User(id: 1, name: "yhgpq")
+        let ldbach = User(id: 2, name: "ldbach")
         return [
             Story(user: bachld, content: "feed"),
             Story(user: ldbach, content: "create"),

@@ -6,7 +6,7 @@ class Post: Equatable {
          content: Content,
          ageInSeconds: Int,
          comments: [Comment]) {
-        self.postId = id
+        self.id = id
         self.creator = creator
         self.content = content
         self.comments = comments
@@ -15,7 +15,7 @@ class Post: Equatable {
     
     typealias IdType = Int
     
-    let postId: IdType
+    let id: IdType
     let creator: User
     let content: Content
     let comments: [Comment]
@@ -39,14 +39,18 @@ class Post: Equatable {
     }
     
     class Comment {
-        init(creator: User,
+        typealias IdType = Int
+        init(id: IdType,
+             creator: User,
              content: String,
              replies: [Post.Comment]) {
+            self.id = id
             self.creator = creator
             self.content = content
             self.replies = replies
         }
         
+        let id: IdType
         let creator: User
         let content: String
         let replies: [Post.Comment]
@@ -71,6 +75,6 @@ class Post: Equatable {
     }
     
     static func == (lhs: Post, rhs: Post) -> Bool {
-        return lhs.postId == rhs.postId
+        return lhs.id == rhs.id
     }
 }

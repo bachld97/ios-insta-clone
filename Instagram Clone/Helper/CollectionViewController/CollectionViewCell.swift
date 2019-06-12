@@ -7,6 +7,10 @@ open class CollectionViewCell: UICollectionViewCell {
         }
     }
     
+    open class func heightForCell(_ item: Any?, cellWidth: CGFloat) -> CGFloat {
+        return 32
+    }
+
     public weak var viewController: BaseCollectionViewController?
     
     open var lineDivider: UIView = {

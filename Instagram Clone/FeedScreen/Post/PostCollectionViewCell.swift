@@ -7,10 +7,11 @@ class PostCollectionViewCell: CollectionViewCell {
     private static var creatorRowHeight: CGFloat = 56
     private static var actionButtonRowHeight: CGFloat = 48
     
-    static func heightForCell(_ item: PostItem?, cellWidth: CGFloat) -> CGFloat {
-        guard let item = item else {
+    override class func heightForCell(_ item: Any?, cellWidth: CGFloat) -> CGFloat {
+        guard let item = item as? PostItem else {
             return fixedHeight
         }
+        
         if item.isTextExpanded && item.cachedExpandedHeight > 0 {
             return item.cachedExpandedHeight
         } else if !item.isTextExpanded && item.cachedCollapseHeight > 0 {

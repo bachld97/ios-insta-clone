@@ -6,7 +6,7 @@ struct PostFromApiResponse: Decodable {
     let likeCount: Int
     let likedByUser: Bool
     let content: [String]
-    let comments: [Comment]
+    let comments: [CommentFromApiResponse]
     
     func toLocalPost() -> Post {
         let comments = self.comments.map {
@@ -38,28 +38,28 @@ struct PostFromApiResponse: Decodable {
         case content = "content"
     }
     
-    struct Comment: Decodable {
-        // let id: Post.Comment.IdType
-        let id: Int
-        let creator: UserInfo
-        let content: String
-        let ageInSeconds: Int
-        
-        private enum CodingKeys: String, CodingKey {
-            case id = "id"
-            case creator = "creator"
-            case content = "content"
-            case ageInSeconds = "age_in_seconds"
-        }
-        
-        func toLocalComment() -> Post.Comment {
-            return Post.Comment(
-                creator: creator.toUser(),
-                content: content,
-                replies: []
-            )
-        }
-    }
+//    struct Comment: Decodable {
+//        let id: Post.Comment.IdType
+//        let creator: UserInfo
+//        let content: String
+//        let ageInSeconds: Int
+//        
+//        private enum CodingKeys: String, CodingKey {
+//            case id = "id"
+//            case creator = "creator"
+//            case content = "content"
+//            case ageInSeconds = "age_in_seconds"
+//        }
+//        
+//        func toLocalComment() -> Post.Comment {
+//            return Post.Comment(
+//                id: id,
+//                creator: creator.toUser(),
+//                content: content,
+//                replies: []
+//            )
+//        }
+//    }
 }
 
 struct LikePostResponse: Decodable {

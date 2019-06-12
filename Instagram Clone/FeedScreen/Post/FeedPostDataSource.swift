@@ -20,6 +20,10 @@ class FeedPostDataSource: CollectionViewDataSource {
         return [PostCollectionViewCell.self]
     }
     
+    override func cellClass(at indexPath: IndexPath) -> CollectionViewCell.Type? {
+        return PostCollectionViewCell.self
+    }
+    
     override open func headerClasses() -> [CollectionViewCell.Type] {
         return [StoriesCollectionViewCell.self]
     }

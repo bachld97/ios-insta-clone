@@ -31,12 +31,16 @@ class FeedScreenViewController: BaseCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadContent()
+    }
+    
+    private func loadContent() {
         fetchPosts.execute(user, completion: postsFetched(_:))
         fetchStories.execute(user, completion: storiesFetched(_:))
     }
-    
+
     override func handleRefresh() {
-        fetchPosts.execute(user, completion: postsFetched(_:))
+        loadContent()
     }
     
     private func postsFetched(_ posts: [Post]) {
@@ -53,12 +57,12 @@ class FeedScreenViewController: BaseCollectionViewController {
         self.dataSource = feedDataSource
     }
     
-    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let item = dataSource?.item(at: indexPath) as? PostItem
-        let w = view.frame.width
-        let h = PostCollectionViewCell.heightForCell(item, cellWidth: w)
-        return .width(w, height: h)
-    }
+//    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let item = dataSource?.item(at: indexPath) as? PostItem
+//        let w = view.frame.width
+//        let h = PostCollectionViewCell.heightForCell(item, cellWidth: w)
+//        return .width(w, height: h)
+//    }
     
     override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return .width(view.frame.width, height: 80)
@@ -113,9 +117,14 @@ extension FeedScreenViewController: PostEventDelegate {
                 return item.toggleLike()
             })
         case .navigateComment:
-            print("Navigate comment: \(item.post.postId)")
+            let lastCommentId = item.post.comments.last?.id
+            let vc = CommentScreenViewController(
+                viewingAs: user, postToLoad: item.post, lastCommentId: lastCommentId
+            )
+            self.navigationController?.pushViewController(vc, animated: true)
+            // present(vc, animated: true, completion: nil)
         case .navigateShare:
-            print("Navigate share: \(item.post.postId)")
+            print("Navigate share: \(item.post.id)")
         case .navigateCreator:
             print("Navigate creator: \(item.post.creator.name)")
         case .imagePositionUpdate(let index):

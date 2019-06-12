@@ -29,7 +29,7 @@ class PostItem {
     }
     
     var timeAgoText: String {
-        return "\(post.ageInSeconds) minutes ago"
+        return "\(post.ageInSeconds)" + "minutes ago".localized
     }
     
     func toExpanded() -> PostItem {

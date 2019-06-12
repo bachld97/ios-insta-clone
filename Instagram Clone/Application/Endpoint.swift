@@ -34,7 +34,7 @@ class Endpoint {
         }
         
         let request = WebService.Request(
-            host: host, path: "/v1/post/\(post.postId)/like/",
+            host: host, path: "/v1/post/\(post.id)/like/",
             params: nil, port: port, httpMethod: .post,
             cookies: nil, accessToken: tokenInfo.accessToken
         )
@@ -47,8 +47,31 @@ class Endpoint {
         }
         
         let request = WebService.Request(
-            host: host, path: "/v1/post/\(post.postId)/unlike/",
+            host: host, path: "/v1/post/\(post.id)/unlike/",
             params: nil, port: port, httpMethod: .post,
+            cookies: nil, accessToken: tokenInfo.accessToken
+        )
+        return request
+    }
+    
+    static func fetchCommentRequest(
+        for post: Post,
+        lastCommentId: Post.Comment.IdType?
+    ) -> WebService.Request {
+        guard let tokenInfo = tokenInfo else {
+            fatalError("Nil token here indicates programming error.")
+        }
+        
+        let params: [String: String]?
+        if let id = lastCommentId {
+            params = ["lastCommentId" : "\(id)"]
+        } else {
+            params = nil
+        }
+
+        let request = WebService.Request(
+            host: host, path: "v1/post/\(post.id)/comment/",
+            params: params, port: port, httpMethod: .get,
             cookies: nil, accessToken: tokenInfo.accessToken
         )
         return request

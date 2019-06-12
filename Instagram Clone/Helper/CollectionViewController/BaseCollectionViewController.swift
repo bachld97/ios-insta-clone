@@ -127,11 +127,14 @@ open class BaseCollectionViewController: UICollectionViewController, UICollectio
         return 0
     }
 
-    // Default 1 column layout with arbitrary height
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .width(view.frame.width, height: 48)
+        let item = dataSource?.item(at: indexPath)
+        let w = view.frame.width
+        let cls = dataSource?.cellClass(at: indexPath) ?? CollectionViewCell.self
+        return .width(w, height: cls.heightForCell(item, cellWidth: w))
     }
     
+
     // Hide header by default
     open func collectionView(
         _ collectionView: UICollectionView,
@@ -150,7 +153,10 @@ open class BaseCollectionViewController: UICollectionViewController, UICollectio
         return .zero
     }
     
-    override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override open func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         
         let cell: CollectionViewCell
         let cellClass: CollectionViewCell.Type
@@ -224,12 +230,11 @@ open class BaseCollectionViewController: UICollectionViewController, UICollectio
             ofKind: kind,
             withReuseIdentifier: footerIdentifier,
             for: indexPath
-            ) as! CollectionViewCell
+        ) as! CollectionViewCell
         
         return footerCell
     }
 
-    
     func flowLayout() -> UICollectionViewFlowLayout? {
         return collectionViewLayout as? UICollectionViewFlowLayout
     }
